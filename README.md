@@ -1,4 +1,4 @@
-# ☁️GOORM_FRIENDS☁️ - 코딩테스트 준비를 위한 WEB IDE 만들기
+# ☁️GOORM_FRIENDS☁️ - 코딩테스트를 위한 WEB IDE 만들기
 
 ### 🕑프로젝트 기간
 
