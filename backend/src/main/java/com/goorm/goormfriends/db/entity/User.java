@@ -1,0 +1,43 @@
+package com.goorm.goormfriends.db.entity;
+
+import com.goorm.goormfriends.api.dto.request.UpdateUserInfoRequest;
+import com.goorm.goormfriends.common.oauth.OAuth2UserInfo;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name="user")
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
+
+    @Column(nullable = false)
+    private String email; // 이메일
+
+    @Column(nullable = true)
+    private String name; // 이름
+
+    @Column(nullable = true)
+    private String profileImage; // 프로필 이미지
+
+    @Column(nullable = false)
+    private String provider; // 소셜 로그인 출처 ex. github, kakao
+
+    public void updateUserInfo(UpdateUserInfoRequest updateUserInfoRequest) {
+        this.name = name;
+        this.profileImage = profileImage;
+    }
+
+    public User(OAuth2UserInfo user) {
+        this.email = user.getEmail();
+        this.provider = user.getProvider();
+        this.profileImage = user.getProfileImage();
+    }
+}
