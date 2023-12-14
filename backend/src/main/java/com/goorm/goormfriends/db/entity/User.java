@@ -18,11 +18,11 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email; // 이메일
 
     @Column(nullable = true)
-    private String name; // 이름
+    private String nickname; // 이름
 
     @Column(nullable = true)
     private String profileImage; // 프로필 이미지
@@ -30,14 +30,15 @@ public class User {
     @Column(nullable = false)
     private String provider; // 소셜 로그인 출처 ex. github, kakao
 
-    public void updateUserInfo(UpdateUserInfoRequest updateUserInfoRequest) {
-        this.name = name;
-        this.profileImage = profileImage;
-    }
+    @Column(nullable = false)
+    private String providerId; // 소셜 로그인 ID
+
 
     public User(OAuth2UserInfo user) {
         this.email = user.getEmail();
-        this.provider = user.getProvider();
+        this.nickname = user.getNickname();
         this.profileImage = user.getProfileImage();
+        this.provider = user.getProvider();
+        this.providerId = user.getProviderId();
     }
 }
