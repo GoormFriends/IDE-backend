@@ -66,14 +66,7 @@ public class SecurityConfig {
                                 .userInfoEndpoint(userInfo -> userInfo.userService(principalOauth2UserService))
                                 .successHandler(oAuth2AuthenticationSuccessHandler)
                                 .failureHandler(oAuth2AuthenticationFailureHandler)
-                        //.userService(principalOauth2UserService)
                 );
-        //.oauth2Login()
-        //.userInfoEndpoint()
-        //.userService(principalOauth2UserService)
-
-        //.successHandler(oAuth2AuthenticationSuccessHandler)
-        //.failureHandler(oAuth2AuthenticationFailureHandler);
 
         return http.build();
 
