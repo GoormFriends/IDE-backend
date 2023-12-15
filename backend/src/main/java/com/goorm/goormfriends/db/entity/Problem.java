@@ -1,14 +1,16 @@
 package com.goorm.goormfriends.db.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
 public class Problem {
+    @Id @GeneratedValue
     @Column(name="problom_id")
     private Long id;
     private String title;
@@ -16,12 +18,12 @@ public class Problem {
     private int level;
 
     @OneToMany(mappedBy = "problem")
-    private ProblemTestCase problemTestCase;
+    private List<ProblemTestCase> problemTestCases = new ArrayList<>();
 
     @OneToMany(mappedBy = "problem")
-    private CustomDirectoryProblem customDirectoryProblem;
+    private List<CustomDirectoryProblem> customDirectoryProblems = new ArrayList<>();
 
     @OneToMany(mappedBy = "problem")
-    private Ide ide;
+    private List<Ide> ides = new ArrayList<>();
 
 }

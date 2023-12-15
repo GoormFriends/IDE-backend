@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
@@ -18,7 +21,7 @@ public class CustomDirectory {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "customDirectory")
-    private CustomDirectoryProblem customDirectoryProblem;
+    @OneToMany(mappedBy = "customDirectory", cascade = CascadeType.ALL)
+    private List<CustomDirectoryProblem> customDirectoryProblems = new ArrayList<>();
 
 }

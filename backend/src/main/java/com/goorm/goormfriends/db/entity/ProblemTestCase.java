@@ -11,7 +11,6 @@ import static jakarta.persistence.FetchType.LAZY;
 public class ProblemTestCase {
     @Id @GeneratedValue
     @Column(name = "problom_test_case_id")
-
     private Long id;
     private String input;
     private String output;

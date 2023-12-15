@@ -22,4 +22,11 @@ public class Ide {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
+
+    //==연관관계 메서드==//
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+        problem.getIdes().add(this);
+    }
 }
