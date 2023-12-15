@@ -5,6 +5,9 @@ import com.goorm.goormfriends.common.oauth.OAuth2UserInfo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="user")
 @Getter
@@ -32,6 +35,9 @@ public class User {
 
     @Column(nullable = false)
     private String providerId; // 소셜 로그인 ID
+
+    @OneToMany(mappedBy = "user")
+    private List<Ide> ides = new ArrayList<>();
 
 
     public User(OAuth2UserInfo user) {

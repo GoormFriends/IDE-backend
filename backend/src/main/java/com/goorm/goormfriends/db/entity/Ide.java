@@ -23,9 +23,12 @@ public class Ide {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    //==연관관계 메서드==//
+    public void setUser(User user){
+        this.user = user;
+        user.getIdes().add(this);
+    }
 
-    public void setProblem(Problem problem) {
+    public void setProblem(Problem problem){
         this.problem = problem;
         problem.getIdes().add(this);
     }
