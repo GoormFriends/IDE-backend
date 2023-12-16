@@ -4,14 +4,12 @@ import com.goorm.goormfriends.api.dto.response.LoginResponse;
 import com.goorm.goormfriends.api.service.UserService;
 import com.goorm.goormfriends.common.jwt.TokenProvider;
 import com.goorm.goormfriends.util.CookieUtil;
-import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,24 +20,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("oauth2")
 @RequiredArgsConstructor
-public class UserController {
+public class OauthController {
 
     private final UserService userService;
-    // 소셜 로그인
-    @GetMapping("info")
-    public ResponseEntity<Map<String, Object>> oauthLogin(@AuthenticationPrincipal User user,
-                                                          HttpServletRequest request,
-                                                          HttpServletResponse response) throws Exception {
+    private final TokenProvider tokenProvider;
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> accessToken(@RequestParam("accessToken") String accessToken, HttpServletRequest request,
+                                                              HttpServletResponse response) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
+
+        Authentication authentication = tokenProvider.getAuthentication(accessToken);
+        User user = (User) authentication.getPrincipal();
 
         String refreshToken = userService.oauthLogin(user.getUsername());
         CookieUtil.addCookie(request, response, "refreshToken", refreshToken);
 
         LoginResponse loginResponse = userService.getLoginUser(user.getUsername());
         resultMap.put("user", loginResponse);
-
+        System.out.println(resultMap);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }
