@@ -10,8 +10,8 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class Problem {
-    @Id @GeneratedValue
-    @Column(name="problom_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="problem_id")
     private Long id;
     private String title;
     private String content;
