@@ -22,7 +22,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     //userRequest -> code를 받아서 accessToken을 응답받은 객체
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = super.loadUser(userRequest); // github 회원 프로필 조회
+        OAuth2User oAuth2User = super.loadUser(userRequest);
         System.out.println(oAuth2User);
         // code 를 통해 구성한 정보
         return processOAuth2User(userRequest, oAuth2User);
