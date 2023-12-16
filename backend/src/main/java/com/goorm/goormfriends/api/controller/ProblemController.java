@@ -24,7 +24,7 @@ public class ProblemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Problem> getProblemById(@PathVariable Long id) {
+    public ResponseEntity<Problem> getProblemById(@PathVariable String id) {
         Optional<Problem> problem = problemService.getProblemById(id);
         return problem.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

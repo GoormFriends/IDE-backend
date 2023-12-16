@@ -14,11 +14,11 @@ import lombok.Setter;
 
 public class IdeResponse {
 
-    private Long id;
-    private boolean solved;
-    private String usercode;
+    private Long id; //ide
+    private boolean state; //state 바꿀예정 문제 정답결과
+    private String usercode; //
     private Long userId;
-    private Long problemId;
+    private String problemId;
     private Integer level;
     private String testCaseInput; // 테스트 케이스 입력
     private String testCaseOutput; // 테스트 케이스 출력
@@ -27,7 +27,7 @@ public class IdeResponse {
 
         return new IdeResponse(
                 ide.getId(),
-                ide.isSolved(),
+                ide.isState(),
                 ide.getUsercode(),
                 ide.getUser() != null ? ide.getUser().getId() : null,
                 ide.getProblem() != null ? ide.getProblem().getId() : null,

@@ -60,7 +60,7 @@ public class IdeService {
         // 출력 예제와 실제 출력을 비교
         boolean solved = actualOutput.equals(testCase.getOutput());
 
-        ide.setSolved(solved);
+        ide.setState(ide.isState());
         ideRepository.save(ide); // 결과 업데이트
 
         return IdeCompilerResponse.from(ide);

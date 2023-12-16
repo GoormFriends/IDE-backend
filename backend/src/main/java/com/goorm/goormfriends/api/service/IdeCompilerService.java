@@ -21,9 +21,9 @@ public class IdeCompilerService {
         );
 
         String userCode = ide.getUsercode();
-        Long problemId = ide.getProblem().getId();
+        String problemId = ide.getProblem().getId();
 
-        // 해당 문제의 모든 테스트 케이스 가져오기
+        // 해당 문제의 테스트 케이스 가져오기
         List<ProblemTestCase> testCases = problemTestCaseRepository.findByProblemId(problemId);
 
         boolean allTestsPassed = testCases.stream().allMatch(testCase -> {
@@ -31,7 +31,7 @@ public class IdeCompilerService {
             return output.equals(testCase.getOutput());
         });
 
-        ide.setSolved(allTestsPassed);
+        ide.setState(allTestsPassed);
         ideRepository.save(ide);
     }
 

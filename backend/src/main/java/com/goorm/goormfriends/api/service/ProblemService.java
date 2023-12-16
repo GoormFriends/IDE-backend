@@ -18,7 +18,7 @@ public class ProblemService {
         return problemRepository.findAll();
     }
 
-    public Optional<Problem> getProblemById(Long id) {
+    public Optional<Problem> getProblemById(String id) {
         return problemRepository.findById(id);
     }
 

@@ -12,7 +12,7 @@ public class Ide {
     @Id @GeneratedValue
     @Column(name = "ide_id")
     private Long id;
-    private boolean solved;
+    private boolean state;
 
     @Column(length = 1000)
     private String usercode;

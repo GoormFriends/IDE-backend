@@ -12,7 +12,7 @@ import java.util.List;
 public class Problem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="problem_id")
-    private Long id;
+    private String id;
     private String title;
     private String content;
     private int level;

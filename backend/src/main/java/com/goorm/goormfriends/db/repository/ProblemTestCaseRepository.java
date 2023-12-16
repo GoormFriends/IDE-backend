@@ -5,5 +5,5 @@ import com.goorm.goormfriends.db.entity.ProblemTestCase;
 import java.util.List;
 
 public interface ProblemTestCaseRepository {
-    List<ProblemTestCase> findByProblemId(Long problemId);
+    List<ProblemTestCase> findByProblemId(String problemId);
 }
