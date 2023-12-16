@@ -25,6 +25,7 @@ public class Ide {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
+
     public void setUser(User user){
         this.user = user;
         user.getIdes().add(this);
@@ -34,4 +35,6 @@ public class Ide {
         this.problem = problem;
         problem.getIdes().add(this);
     }
+
+
 }

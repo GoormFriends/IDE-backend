@@ -1,12 +1,11 @@
 package com.goorm.goormfriends.api.controller;
 
 import com.goorm.goormfriends.api.dto.request.IdeRequest;
+import com.goorm.goormfriends.api.dto.response.IdeCompilerResponse;
 import com.goorm.goormfriends.api.dto.response.IdeResponse;
 import com.goorm.goormfriends.api.service.IdeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,12 +19,11 @@ public class IdeController {
 
                 return ideService.addInput(ideRequest);
         }
-/*
-        //결과 출력 findById, findByName 조회
-        @GetMapping("/solve/{id}")
-        public IdeResponse getOutput(@PathVariable Long id) {
-            return ideService.findById.getOutput(id);
+
+        // 결과 출력
+        @GetMapping ("/solve/{ideId}")
+        public IdeCompilerResponse getOutput(@PathVariable Long ideId) {
+                return ideService.getOutput(ideId);
         }
 
- */
 }
