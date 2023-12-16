@@ -13,6 +13,8 @@ public class Ide {
     @Column(name = "ide_id")
     private Long id;
     private boolean solved;
+
+    @Column(length = 1000)
     private String usercode;
 
     @ManyToOne(fetch = LAZY)

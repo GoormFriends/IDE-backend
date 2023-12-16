@@ -3,7 +3,7 @@ package com.goorm.goormfriends.api.service;
 import com.goorm.goormfriends.api.dto.response.LoginResponse;
 
 public interface UserService {
-    String findUserEmailByUserId(int userId) throws Exception;
+    String findUserEmailByUserId(Long userId) throws Exception;
 
     String oauthLogin(String email) throws Exception;
 

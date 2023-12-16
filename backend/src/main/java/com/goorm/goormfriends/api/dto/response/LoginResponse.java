@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 public class LoginResponse {
 
-    private final int userId;
+    private final Long userId;
     private final String nickname;
     private final String profileImage;
     private final String email;
