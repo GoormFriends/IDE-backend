@@ -1,6 +1,8 @@
 package com.goorm.goormfriends.api.service;
 
+import com.goorm.goormfriends.api.dto.request.UpdateUserInfoRequest;
 import com.goorm.goormfriends.api.dto.response.LoginResponse;
+import com.goorm.goormfriends.api.dto.response.UserInfoRespone;
 import com.goorm.goormfriends.common.jwt.TokenProvider;
 import com.goorm.goormfriends.db.entity.RefreshToken;
 import com.goorm.goormfriends.db.entity.User;
@@ -90,5 +92,17 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean existsByNickname(String nickname) throws Exception {
         return userRepository.existsByNickname(nickname);
+    }
+    @Override
+    public UserInfoRespone setUserInfo(UpdateUserInfoRequest updateUserInfoRequest) throws Exception{
+        int userId = updateUserInfoRequest.getUserId();
+
+        User updateUser = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception("can't find user"));
+
+        updateUser.setNickname(updateUserInfoRequest.getNickname());
+        updateUser.setProfileImage(updateUserInfoRequest.getProfileImage());
+        updateUser = userRepository.save(updateUser);
+        return new UserInfoRespone(updateUser);
     }
 }
