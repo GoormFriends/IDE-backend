@@ -30,7 +30,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         // redirect 할 url 지정해주기
         String targetUrl = determineTargetUrl(request, response, authentication);
-        System.out.println("targetUrl " + targetUrl);
         if (response.isCommitted()) {
             return;
         }

@@ -5,8 +5,8 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class UpdateUserInfoRequest {
+public class UpdateDirectoryRequest {
     private int userId;
-    private String nickname; // nickname 개념으로 보면 될듯
-    private String profileImage;
+    private int directoryId;
+    private String newDirectoryTitle;
 }
