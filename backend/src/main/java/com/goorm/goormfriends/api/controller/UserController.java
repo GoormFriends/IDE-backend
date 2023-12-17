@@ -39,7 +39,7 @@ public class UserController {
 
         LoginResponse loginResponse = userService.getLoginUser(user.getUsername());
         resultMap.put("user", loginResponse);
-
+        System.out.println(resultMap);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }
