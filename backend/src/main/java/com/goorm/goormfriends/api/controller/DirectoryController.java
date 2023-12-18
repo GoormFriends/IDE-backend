@@ -1,8 +1,8 @@
 package com.goorm.goormfriends.api.controller;
 
-import com.goorm.goormfriends.api.dto.request.CreateDirectoryRequest;
-import com.goorm.goormfriends.api.dto.request.UpdateDirectoryRequest;
+import com.goorm.goormfriends.api.dto.request.*;
 import com.goorm.goormfriends.api.dto.response.DirectoryListResponse;
+import com.goorm.goormfriends.api.dto.response.DirectoryProblemResponse;
 import com.goorm.goormfriends.api.service.DirectoryService;
 import com.goorm.goormfriends.api.service.UserService;
 import com.goorm.goormfriends.db.entity.CustomDirectory;
@@ -28,7 +28,7 @@ public class DirectoryController {
 
     @GetMapping
     public List<DirectoryListResponse> getDirectoryList(@AuthenticationPrincipal User user,
-                                                                  @RequestParam(name = "userId") Integer userId) throws Exception {
+                                                                  @RequestParam(name="userId") Integer userId) throws Exception {
 
         String userEmail = userService.findUserEmailByUserId(userId);
 
@@ -59,6 +59,46 @@ public class DirectoryController {
             throw new IllegalArgumentException("Usernames do not match!");
         } else {
             directoryService.updateDirectory(updateDirectoryRequest);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteDirectory(@AuthenticationPrincipal User user,
+                                                @RequestBody DeleteDirectoryRequest deleteDirectoryRequest) throws Exception {
+
+        String userEmail = userService.findUserEmailByUserId(deleteDirectoryRequest.getUserId());
+        if (!user.getUsername().equals(userEmail)) {
+            throw new IllegalArgumentException("Usernames do not match!");
+        } else {
+            directoryService.deleteDirectory(deleteDirectoryRequest);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("problem")
+    public ResponseEntity<Map<String, Object>> addDirectoryProblem(@AuthenticationPrincipal User user,
+                                                                   @RequestBody CreateDirectoryProblemRequest createDirectoryProblemRequest) throws Exception {
+
+        String userEmail = userService.findUserEmailByUserId(createDirectoryProblemRequest.getUserId());
+        if (!user.getUsername().equals(userEmail)) {
+            throw new IllegalArgumentException("Usernames do not match!");
+        } else {
+            Map<String, Object> resultMap = new HashMap<>();
+            DirectoryProblemResponse directoryProblemResponse = directoryService.addDirectoryProblem(createDirectoryProblemRequest);
+            resultMap.put("directoryProblemResponse", directoryProblemResponse);
+            return new ResponseEntity<>(resultMap,HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("problem")
+    public ResponseEntity<Void> deleteDirectoryProblem(@AuthenticationPrincipal User user,
+                                                       @RequestBody DeleteDirectoryProblemRequest deleteDirectoryProblemRequest) throws Exception {
+        String userEmail = userService.findUserEmailByUserId(deleteDirectoryProblemRequest.getUserId());
+        if (!user.getUsername().equals(userEmail)) {
+            throw new IllegalArgumentException("Usernames do not match!");
+        } else {
+            directoryService.deleteDirectoryProblem(deleteDirectoryProblemRequest);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

@@ -10,5 +10,9 @@ import java.util.Optional;
 public interface CustomDirectoryRepository extends JpaRepository<CustomDirectory, Integer> {
     List<CustomDirectory> findByUserId(Integer userId);
 
-    Optional<CustomDirectory> findById(Integer id);
+    Optional<CustomDirectory> findById(Long id);
+
+    boolean existsById(Long directoryId);
+
+    void deleteById(Long directoryId);
 }

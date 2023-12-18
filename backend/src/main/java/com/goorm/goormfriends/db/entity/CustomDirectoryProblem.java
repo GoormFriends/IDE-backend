@@ -1,6 +1,7 @@
 package com.goorm.goormfriends.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.goorm.goormfriends.api.dto.request.CreateDirectoryProblemRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,11 @@ public class CustomDirectoryProblem {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "custom_directory_id")
     private CustomDirectory customDirectory;
+
+    public CustomDirectoryProblem(CreateDirectoryProblemRequest createDirectoryProblemRequest) {
+        this.problem = new Problem();
+        problem.setId(createDirectoryProblemRequest.getProblemId());
+        this.customDirectory = new CustomDirectory();
+        customDirectory.setId(createDirectoryProblemRequest.getDirectoryId());
+    }
 }
