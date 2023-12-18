@@ -7,13 +7,13 @@ import lombok.ToString;
 @ToString
 @Getter
 public class DirectoryProblemResponse {
-    private final Long directProblem;
-    private final Long problemNum;
-    private final String problemTitle;
+    private final Long directoryId;
+    private final Long problemId;
+    private final Long directoryProblemId;
 
     public DirectoryProblemResponse(CustomDirectoryProblem customDirectoryProblem) {
-        this.directProblem = customDirectoryProblem.getId();
-        this.problemNum = customDirectoryProblem.getProblem().getId();
-        this.problemTitle = customDirectoryProblem.getProblem().getTitle();
+        this.directoryProblemId = customDirectoryProblem.getId();
+        this.problemId = customDirectoryProblem.getProblem().getId();
+        this.directoryId = customDirectoryProblem.getCustomDirectory().getId();
     }
 }
