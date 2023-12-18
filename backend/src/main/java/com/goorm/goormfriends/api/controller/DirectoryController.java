@@ -28,7 +28,7 @@ public class DirectoryController {
 
     @GetMapping
     public List<DirectoryListResponse> getDirectoryList(@AuthenticationPrincipal User user,
-                                                                  @RequestParam(name = "userId") Integer userId) throws Exception {
+                                                                  @RequestBody Integer userId) throws Exception {
 
         String userEmail = userService.findUserEmailByUserId(userId);
 

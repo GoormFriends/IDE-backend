@@ -23,7 +23,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println(oAuth2User);
         // code 를 통해 구성한 정보
         return processOAuth2User(userRequest, oAuth2User);
     }
@@ -38,7 +37,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else {
             throw new NullPointerException();
         }
-        System.out.print("principalOauth2UserService " + oAuth2UserInfo);
         Optional<User> userOptional =
                 userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 
