@@ -21,9 +21,9 @@ public class IdeController {
         }
 
         // 결과 출력
-        @GetMapping ("/solve/{userId}")
-        public IdeCompilerResponse getOutput(@PathVariable Long userId) {
-                return ideService.getOutput(userId);
-        }
+//        @GetMapping ("/solve/{userId}")
+//        public IdeCompilerResponse getOutput(@PathVariable Long userId) {
+//                return ideService.getOutput(userId);
+//        }
 
 }

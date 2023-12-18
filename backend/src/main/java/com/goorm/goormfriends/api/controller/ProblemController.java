@@ -1,36 +1,24 @@
 package com.goorm.goormfriends.api.controller;
 
+import com.goorm.goormfriends.api.dto.response.ProblemResponse;
 import com.goorm.goormfriends.api.service.ProblemService;
-import com.goorm.goormfriends.api.service.UserService;
-import com.goorm.goormfriends.db.entity.Problem;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/problems")
+@RequiredArgsConstructor
 public class ProblemController {
-    @Autowired
-    private ProblemService problemService;
-    @Autowired
-    private UserService userService;
 
-    @GetMapping
-    public List<Problem> getAllProblems() {
-        return problemService.getAllProblems();
-    }
+    private final ProblemService problemService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Problem> getProblemById(@PathVariable String id) {
-        Optional<Problem> problem = problemService.getProblemById(id);
-        return problem.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public Problem createProblem(@RequestBody Problem problem) {
-        return problemService.createProblem(problem);
+    // 사용자 ID에 따라 문제 목록을 조회하는 엔드포인트
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ProblemResponse>> getProblemsByUserId(@PathVariable("userId") Long userId) {
+        List<ProblemResponse> problems = problemService.getProblemsByUserId(userId);
+        return ResponseEntity.ok(problems);
     }
 }

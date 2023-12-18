@@ -21,7 +21,4 @@ public class CustomDirectoryProblem {
     @JoinColumn(name = "custom_directory_id")
     private CustomDirectory customDirectory;
 
-
-
-
 }

@@ -19,7 +19,7 @@ public class IdeResponse {
     private String usercode; //
     private Long userId;
     private String problemId;
-    private Integer level;
+    private Long level;
     private String testCaseInput; // 테스트 케이스 입력
     private String testCaseOutput; // 테스트 케이스 출력
 
