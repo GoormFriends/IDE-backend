@@ -23,14 +23,14 @@ public class CustomDirectory {
 
     private String directory_name;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "customDirectory", cascade = CascadeType.ALL)
     private List<CustomDirectoryProblem> customDirectoryProblems = new ArrayList<>();
 
-    public CustomDirectory(String title, Integer userId) {
+    public CustomDirectory(String title, Long userId) {
         this.directory_name = title;
         this.user = new User();
         user.setId(userId);

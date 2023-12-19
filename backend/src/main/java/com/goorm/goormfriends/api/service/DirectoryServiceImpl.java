@@ -28,7 +28,7 @@ public class DirectoryServiceImpl implements DirectoryService{
     private final CustomDirectoryRepository customDirectoryRepository;
     private final CustomDirectoryProblemRepository customDirectoryProblemRepository;
     @Override
-    public List<DirectoryListResponse> getCustomDirectory(int userId) throws Exception{
+    public List<DirectoryListResponse> getCustomDirectory(Long userId) throws Exception{
         List<DirectoryListResponse> result = new ArrayList<>();
         List<CustomDirectory> customDirectoryList = customDirectoryRepository.findByUserId(userId);
         for (CustomDirectory customDirectory : customDirectoryList) {

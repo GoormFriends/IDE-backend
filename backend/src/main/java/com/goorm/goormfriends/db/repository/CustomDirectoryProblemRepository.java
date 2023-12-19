@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CustomDirectoryProblemRepository extends JpaRepository<CustomDirectoryProblem, Long> {
     List<CustomDirectoryProblem> findByCustomDirectoryId(Long customDirectoryId);
-    boolean existsByCustomDirectoryIdAndProblemId(Long customDirectoryId, Long ProblmeId);
+    boolean existsByCustomDirectoryIdAndProblemId(Long customDirectoryId, Long ProblemId);
 }

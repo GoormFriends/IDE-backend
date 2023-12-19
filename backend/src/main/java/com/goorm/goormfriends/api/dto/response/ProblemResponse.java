@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProblemResponse {
-    private String problemId;
+    private Long problemId;
     private String title;
     private Long level;
     private List<Boolean> idesStates; // 사용자의 Ide 상태 목록

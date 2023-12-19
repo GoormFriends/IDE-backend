@@ -6,6 +6,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CreateDirectoryRequest {
-    private int userId;
+    private Long userId;
     private String directoryTitle;
 }

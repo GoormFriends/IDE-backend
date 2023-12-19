@@ -9,6 +9,7 @@ import com.nimbusds.oauth2.sdk.token.AccessToken;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
+@Transactional
 @RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {

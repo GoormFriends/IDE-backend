@@ -6,6 +6,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class DeleteDirectoryRequest {
-    private int userId;
+    private Long userId;
     private Long directoryId;
 }

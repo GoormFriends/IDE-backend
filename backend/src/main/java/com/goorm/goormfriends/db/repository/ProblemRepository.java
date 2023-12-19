@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProblemRepository extends JpaRepository<Problem, String> {
+public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     // 사용자 ID를 사용하여 Problem을 조회하는 사용자 정의 쿼리
     @Query("SELECT p FROM Problem p JOIN p.ides i WHERE i.user.id = :userId")

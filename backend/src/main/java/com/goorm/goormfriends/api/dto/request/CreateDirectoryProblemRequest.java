@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class CreateDirectoryProblemRequest {
-    private Integer userId;
+    private Long userId;
     private Long directoryId;
     private Long problemId;
 }

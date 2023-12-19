@@ -6,7 +6,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UpdateDirectoryRequest {
-    private int userId;
-    private int directoryId;
+    private Long userId;
+    private Long directoryId;
     private String newDirectoryTitle;
 }

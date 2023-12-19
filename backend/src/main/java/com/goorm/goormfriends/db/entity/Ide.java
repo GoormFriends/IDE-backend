@@ -17,14 +17,13 @@ public class Ide {
     @Column(length = 1000)
     private String usercode;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
-
 
     public void setUser(User user){
         this.user = user;

@@ -11,8 +11,9 @@ import java.util.List;
 @Getter @Setter
 public class Problem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="problem_id")
-    private String id;
+    private Long id;
     private String title;
     private String content;
     private Long level;

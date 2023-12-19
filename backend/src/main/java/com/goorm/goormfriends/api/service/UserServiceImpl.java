@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public UserInfoRespone setUserInfo(UpdateUserInfoRequest updateUserInfoRequest) throws Exception{
-        int userId = updateUserInfoRequest.getUserId();
+        Long userId = updateUserInfoRequest.getUserId();
 
         User updateUser = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception("can't find user"));

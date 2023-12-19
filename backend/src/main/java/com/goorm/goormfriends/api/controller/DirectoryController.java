@@ -6,6 +6,7 @@ import com.goorm.goormfriends.api.dto.response.DirectoryProblemResponse;
 import com.goorm.goormfriends.api.service.DirectoryService;
 import com.goorm.goormfriends.api.service.UserService;
 import com.goorm.goormfriends.db.entity.CustomDirectory;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 @RestController
 @RequestMapping("directory")
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class DirectoryController {
 
     @GetMapping
     public List<DirectoryListResponse> getDirectoryList(@AuthenticationPrincipal User user,
-                                                                  @RequestParam(name="userId") Integer userId) throws Exception {
+                                                                  @RequestParam(name="userId") Long userId) throws Exception {
 
         String userEmail = userService.findUserEmailByUserId(userId);
 
