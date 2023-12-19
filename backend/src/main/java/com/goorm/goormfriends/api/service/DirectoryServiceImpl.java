@@ -91,6 +91,11 @@ public class DirectoryServiceImpl implements DirectoryService{
         if (!customDirectoryRepository.existsById(createDirectoryProblemRequest.getDirectoryId())) {
             throw new IllegalArgumentException("CustomDirectory not found with ID: " + createDirectoryProblemRequest.getDirectoryId());
         }
+
+        if (customDirectoryProblemRepository.existsByCustomDirectoryIdAndProblemId(createDirectoryProblemRequest.getDirectoryId(),
+                createDirectoryProblemRequest.getProblemId())) {
+            throw new IllegalArgumentException("이미 해당 디렉토리에 넣은 문제입니다");
+        }
         // 그렇다면 넣기
         Optional<CustomDirectory> customDirectory = customDirectoryRepository.findById(createDirectoryProblemRequest.getDirectoryId());
         //Problem problem = problemRepository.findById(createDirectoryProblemRequest.getDirectoryId());

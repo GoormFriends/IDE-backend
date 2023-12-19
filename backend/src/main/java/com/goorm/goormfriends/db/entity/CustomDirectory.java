@@ -23,7 +23,7 @@ public class CustomDirectory {
 
     private String directory_name;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
