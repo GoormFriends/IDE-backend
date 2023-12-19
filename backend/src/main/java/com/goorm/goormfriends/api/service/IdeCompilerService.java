@@ -4,12 +4,14 @@ import com.goorm.goormfriends.db.entity.Ide;
 import com.goorm.goormfriends.db.entity.ProblemTestCase;
 import com.goorm.goormfriends.db.repository.IdeRepository;
 import com.goorm.goormfriends.db.repository.ProblemTestCaseRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class IdeCompilerService {
 //    private final IdeRepository ideRepository;
@@ -21,13 +23,13 @@ public class IdeCompilerService {
 //        );
 //
 //        String userCode = ide.getUsercode();
-//        String problemId = ide.getProblem().getId();
+//        Long problemId = ide.getProblem().getId();
 //
 //        // 해당 문제의 테스트 케이스 가져오기
 //        List<ProblemTestCase> testCases = problemTestCaseRepository.findByProblemId(problemId);
 //
 //        boolean allTestsPassed = testCases.stream().allMatch(testCase -> {
-//            String output = externalCompilerService.compileAndRun(userCode, testCase.getInput());
+//            //String output = externalCompilerService.compileAndRun(userCode, testCase.getInput());
 //            return output.equals(testCase.getOutput());
 //        });
 //

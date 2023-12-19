@@ -8,6 +8,6 @@ import lombok.Data;
 public class IdeRequest {
 
     private Long userId; //유저아이디
-    private String problemId; //문제넘버
+    private Long problemId; //문제넘버
     private String usercode; //유저코드
 }

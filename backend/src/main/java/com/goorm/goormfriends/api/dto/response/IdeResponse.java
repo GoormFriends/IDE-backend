@@ -15,7 +15,7 @@ import lombok.Setter;
 public class IdeResponse {
 
     private Long userId;
-    private String problemId;
+    private Long problemId;
     private String usercode;
 
     public static IdeResponse from(Ide ide) {

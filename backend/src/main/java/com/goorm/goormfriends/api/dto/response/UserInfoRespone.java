@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class UserInfoRespone {
-    private Integer id;
+    private Long id;
     private String nickname;
     private String profileImage;
 

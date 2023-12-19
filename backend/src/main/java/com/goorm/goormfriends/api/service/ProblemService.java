@@ -7,13 +7,16 @@ import com.goorm.goormfriends.db.entity.CustomDirectory;
 import com.goorm.goormfriends.db.entity.Ide;
 import com.goorm.goormfriends.db.repository.ProblemRepository;
 import com.goorm.goormfriends.db.repository.IdeRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProblemService {
     private final ProblemRepository problemRepository;
@@ -29,7 +32,8 @@ public class ProblemService {
         return problems.stream().map(problem -> {
             // 각 Problem에 연결된 Ide와 CustomDirectory 조회
             List<Ide> ides = ideRepository.findAllByProblemId(problem.getId());
-            List<CustomDirectory> customDirectories = customDirectoryRepository.findAllByProblemId(problem.getId());
+            //List<CustomDirectory> customDirectories = customDirectoryRepository.findAllByProblemId(problem.getId());
+            List<CustomDirectory> customDirectories = new ArrayList<>();
 
             // ProblemResponse 객체 생성 및 반환
             return ProblemResponse.from(problem, ides, customDirectories);

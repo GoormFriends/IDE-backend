@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CustomDirectoryRepository extends JpaRepository<CustomDirectory, Integer> {
-    List<CustomDirectory> findByUserId(Integer userId);
+public interface CustomDirectoryRepository extends JpaRepository<CustomDirectory, Long> {
+    List<CustomDirectory> findByUserId(Long userId);
 
     Optional<CustomDirectory> findById(Long id);
 

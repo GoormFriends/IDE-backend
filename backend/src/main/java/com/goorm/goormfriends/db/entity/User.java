@@ -19,9 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-
     private Long id;
-
 
     @Column(nullable = true)
     private String email; // 이메일
@@ -39,13 +37,12 @@ public class User {
     private String providerId; // 소셜 로그인 ID
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ide> ides = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CustomDirectory> customDirectory = new ArrayList<>();
-
 
     public User(OAuth2UserInfo user) {
         this.email = user.getEmail();

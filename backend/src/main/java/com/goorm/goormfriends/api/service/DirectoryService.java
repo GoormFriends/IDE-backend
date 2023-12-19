@@ -8,7 +8,7 @@ import com.goorm.goormfriends.db.entity.CustomDirectory;
 import java.util.List;
 
 public interface DirectoryService {
-    List<DirectoryListResponse> getCustomDirectory(int userId) throws Exception;
+    List<DirectoryListResponse> getCustomDirectory(Long userId) throws Exception;
     void addDirectory(String email, String title) throws Exception;
 
     void updateDirectory(UpdateDirectoryRequest updateDirectoryRequest) throws Exception;
