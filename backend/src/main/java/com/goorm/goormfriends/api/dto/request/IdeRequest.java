@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class IdeRequest {
 
+    private Long userId; //유저아이디
+    private String problemId; //문제넘버
     private String usercode; //유저코드
-    private Problem problem; //문제넘버
-    private User user; //유저아이디
 }
