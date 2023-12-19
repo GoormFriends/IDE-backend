@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProblemService {
-
     private final ProblemRepository problemRepository;
     private final IdeRepository ideRepository;
     private final CustomDirectoryRepository customDirectoryRepository;
