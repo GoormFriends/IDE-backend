@@ -10,12 +10,12 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class Problem {
-    @Id @GeneratedValue
-    @Column(name="problom_id")
-    private Long id;
+    @Id
+    @Column(name="problem_id")
+    private String id;
     private String title;
     private String content;
-    private int level;
+    private Long level;
 
     @OneToMany(mappedBy = "problem")
     private List<ProblemTestCase> problemTestCases = new ArrayList<>();

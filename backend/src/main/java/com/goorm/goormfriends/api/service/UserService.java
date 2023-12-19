@@ -6,7 +6,7 @@ import com.goorm.goormfriends.api.dto.response.UserInfoRespone;
 import com.goorm.goormfriends.db.entity.User;
 
 public interface UserService {
-    String findUserEmailByUserId(int userId) throws Exception;
+    String findUserEmailByUserId(Long userId) throws Exception;
 
     String oauthLogin(String email) throws Exception;
 
