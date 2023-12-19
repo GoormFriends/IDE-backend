@@ -21,29 +21,25 @@ public class IdeService {
     private final IdeRepository ideRepository;
     private final ProblemRepository problemRepository;
     private final UserRepository userRepository;
-    private final IdeCompilerService ideCompilerService;
+ //   private final IdeCompilerService ideCompilerService;
 
 
-    public IdeResponse addInput(IdeRequest request) {
-        Optional<Problem> problem = problemRepository.findById(request.getProblem().getId());
-        if (!problem.isPresent()) {
-            throw new RuntimeException("Problem not found with id: " + request.getProblem().getId());
-        }
+    public IdeResponse addInput(Long userId, String problemId, IdeRequest request) {
+        Problem problem = problemRepository.findById(request.getProblemId())
+                .orElseThrow(() -> new RuntimeException("Problem not found with id: " + request.getProblemId()));
 
-        Optional<User> user = userRepository.findById(request.getUser().getId());
-        if (!user.isPresent()) {
-            throw new RuntimeException("User not found with id: " + request.getUser().getId());
-        }
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + request.getUserId()));
+
 
         Ide ide = new Ide();
-        ide.setProblem(problem.get());
+        ide.setUser(user);
+        ide.setProblem(problem);
         ide.setUsercode(request.getUsercode());
-        ide.setUser(user.get());
 
         Ide savedIde = ideRepository.save(ide);
-        ProblemTestCase testCase = problem.get().getProblemTestCases().get(0); // 첫 번째 테스트 케이스를 가져옴
 
-        return IdeResponse.from(savedIde, testCase);
+        return IdeResponse.from(savedIde);
     }
 
 //    public IdeCompilerResponse getOutput(Long ideId) {
