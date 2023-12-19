@@ -6,7 +6,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UpdateUserInfoRequest {
-    private int userId;
-    private String nickname; // nickname 개념으로 보면 될듯
+
+    private Long userId;
+    private String name; // nickname 개념으로 보면 될듯
+
     private String profileImage;
 }
