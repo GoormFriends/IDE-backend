@@ -2,6 +2,7 @@ package com.goorm.goormfriends.common.oauth;
 
 import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;

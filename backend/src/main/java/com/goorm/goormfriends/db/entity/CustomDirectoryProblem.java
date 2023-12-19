@@ -18,11 +18,11 @@ public class CustomDirectoryProblem {
     @Column(name="custom_directory_problem_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(targetEntity = Problem.class, fetch = LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(targetEntity = CustomDirectory.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "custom_directory_id")
     private CustomDirectory customDirectory;
 
