@@ -5,10 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 // 시큐리티가 /login 요청을 보고 로그인을 대신 진행해준다
@@ -26,6 +29,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         this.user = user;
     }
 
+
     public PrincipalDetails(User user, Map<String, Object> attributes) {
         this.user = user;
         this.attributes = attributes;
@@ -33,7 +37,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> listRole = new ArrayList<>();
+        listRole.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return listRole;
     }
 
     @Override
