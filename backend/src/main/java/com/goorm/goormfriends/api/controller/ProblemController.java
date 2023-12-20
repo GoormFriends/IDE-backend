@@ -1,5 +1,6 @@
 package com.goorm.goormfriends.api.controller;
 
+import com.goorm.goormfriends.api.dto.response.ProblemDetailsResponse;
 import com.goorm.goormfriends.api.dto.response.ProblemResponse;
 import com.goorm.goormfriends.api.service.ProblemService;
 import jakarta.transaction.Transactional;
@@ -24,5 +25,9 @@ public class ProblemController {
         return ResponseEntity.ok(problems);
     }
 
+    @GetMapping("/ide/{userId}/{problemId}")
+    public ProblemDetailsResponse getProblemDetails(@PathVariable Long userId, @PathVariable Long problemId) {
+        return problemService.getProblemDetails(userId, problemId);
+    }
 
 }

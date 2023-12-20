@@ -1,6 +1,9 @@
 package com.goorm.goormfriends.api.service;
 
+import com.goorm.goormfriends.api.dto.response.CustomDirectoryInfo;
+import com.goorm.goormfriends.api.dto.response.ProblemDetailsResponse;
 import com.goorm.goormfriends.api.dto.response.ProblemResponse;
+import com.goorm.goormfriends.api.dto.response.TestCaseInfo;
 import com.goorm.goormfriends.db.entity.*;
 import com.goorm.goormfriends.db.repository.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,36 +21,74 @@ import java.util.stream.Collectors;
 public class ProblemService {
     private final ProblemRepository problemRepository;
     private final IdeRepository ideRepository;
-    private final CustomDirectoryRepository customDirectoryRepository;
     private final UserRepository userRepository;
+    private final CustomDirectoryRepository customDirectoryRepository;
     private final CustomDirectoryProblemRepository customDirectoryProblemRepository;
+    private final ProblemTestCaseRepository problemTestCaseRepository;
 
     // 특정 userId에 연결된 모든 Problem의 정보와 해당 Problem에 연결된 Ide 상태 및 CustomDirectory 이름을 반환
     public List<ProblemResponse> getProblemsByUserId(Long userId) {
-        // 사용자 ID에 해당하는 모든 Problem을 조회
         List<Problem> problems = problemRepository.findAllByUserId(userId);
-
-        // 해당 userId로 User 객체를 조회
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        // 각 Problem에 대한 ProblemResponse 생성
         return problems.stream().map(problem -> {
-            // 각 Problem에 연결된 Ide와 CustomDirectory 조회
             List<Ide> ides = ideRepository.findAllByProblemId(problem.getId());
 
-            // 해당 Problem과 연관된 CustomDirectoryProblem 조회
-            List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
+            // 해당 userId와 연관된 첫 번째 Ide의 상태만을 반환
+            Boolean ideState = ides.stream()
+                    .filter(ide -> ide.getUser().equals(user))
+                    .map(Ide::isState)
+                    .findFirst()
+                    .orElse(null); // 사용자와 연관된 Ide가 없을 경우 null 반환
 
-            // 해당 Problem과 연관된 CustomDirectoryProblem을 기반으로 CustomDirectory 리스트 생성
-            List<CustomDirectory> customDirectories = customDirectoryProblemRepository.findByProblemId(problem.getId())
-                    .stream()
-                    .filter(cdp -> cdp.getCustomDirectory().getUser().equals(user)) // 사용자와 연관된 것만 필터링
-                    .map(CustomDirectoryProblem::getCustomDirectory)
-                    .distinct() // 중복 제거
+            List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
+            List<CustomDirectoryInfo> customDirectoryInfos = customDirectoryProblems.stream()
+                    .filter(cdp -> cdp.getCustomDirectory().getUser().equals(user))
+                    .map(cdp -> new CustomDirectoryInfo(cdp.getCustomDirectory().getId(), cdp.getCustomDirectory().getDirectory_name()))
                     .collect(Collectors.toList());
 
-            return ProblemResponse.from(problem, ides, customDirectories, user);
+            return new ProblemResponse(problem.getId(), problem.getTitle(), problem.getLevel(),
+                    ideState,
+                    customDirectoryInfos);
         }).collect(Collectors.toList());
+    }
+
+    public ProblemDetailsResponse getProblemDetails(Long userId, Long problemId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Problem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new EntityNotFoundException("Problem not found"));
+        Ide ide = ideRepository.findByUserIdAndProblemId(userId, problemId)
+                .orElseThrow(() -> new EntityNotFoundException("Ide not found"));
+        List<CustomDirectory> customDirectories = customDirectoryRepository.findByUserId(userId);
+        if (customDirectories.isEmpty()) {
+            throw new EntityNotFoundException("CustomDirectory not found for user id " + userId);
+        }
+
+        // CustomDirectoryInfo 리스트 생성
+        List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problemId);
+        List<CustomDirectoryInfo> customDirectoryInfos = customDirectoryProblems.stream()
+                .filter(cdp -> cdp.getCustomDirectory().getUser().equals(user))
+                .map(cdp -> new CustomDirectoryInfo(cdp.getCustomDirectory().getId(), cdp.getCustomDirectory().getDirectory_name()))
+                .collect(Collectors.toList());
+
+        // TestCaseInfo 리스트 생성
+        List<TestCaseInfo> testCaseInfos = problemTestCaseRepository.findByProblemId(problemId)
+                .stream()
+                .map(ptc -> new TestCaseInfo(ptc.getInput(), ptc.getOutput()))
+                .collect(Collectors.toList());
+
+        // ProblemDetailsResponse 객체 생성 및 필드 설정
+        ProblemDetailsResponse response = new ProblemDetailsResponse();
+        response.setUserId(userId);
+        response.setProblemId(problemId);
+        response.setUsercode(ide.getUsercode());
+        response.setContent(problem.getContent());
+        response.setLevel(problem.getLevel());
+        response.setCustomDirectoryInfos(customDirectoryInfos);
+        response.setTestCases(testCaseInfos); // 새로 추가된 필드 설정
+
+        return response;
     }
 }
