@@ -1,5 +1,7 @@
 package com.goorm.goormfriends.api.controller;
 
+import com.goorm.goormfriends.api.dto.criteria.ProblemSearchCriteria;
+import com.goorm.goormfriends.api.dto.response.ProblemDetailsResponse;
 import com.goorm.goormfriends.api.dto.response.ProblemResponse;
 import com.goorm.goormfriends.api.service.ProblemService;
 import jakarta.transaction.Transactional;
@@ -18,9 +20,14 @@ public class ProblemController {
     private final ProblemService problemService;
 
     // 사용자 ID에 따라 문제 목록을 조회하는 엔드포인트
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<ProblemResponse>> getProblemsByUserId(@PathVariable("userId") Long userId) {
         List<ProblemResponse> problems = problemService.getProblemsByUserId(userId);
         return ResponseEntity.ok(problems);
+    }
+
+    @GetMapping("/ide/{userId}/{problemId}")
+    public ProblemDetailsResponse getProblemDetails(@PathVariable Long userId, @PathVariable Long problemId) {
+        return problemService.getProblemDetails(userId, problemId);
     }
 }
