@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="user")
-@Getter
+@Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,9 +36,13 @@ public class User {
     @Column(nullable = false)
     private String providerId; // 소셜 로그인 ID
 
-    @OneToMany(mappedBy = "user")
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ide> ides = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CustomDirectory> customDirectory = new ArrayList<>();
 
     public User(OAuth2UserInfo user) {
         this.email = user.getEmail();

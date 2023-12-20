@@ -13,3 +13,4 @@ public interface IdeRepository extends JpaRepository<Ide, Long> {
     List<Ide> findAllByProblemId(Long problemId);
 
 }
+

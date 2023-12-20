@@ -2,12 +2,14 @@ package com.goorm.goormfriends.api.controller;
 
 import com.goorm.goormfriends.api.dto.response.ProblemResponse;
 import com.goorm.goormfriends.api.service.ProblemService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Transactional
 @RestController
 @RequestMapping("/api/problems")
 @RequiredArgsConstructor

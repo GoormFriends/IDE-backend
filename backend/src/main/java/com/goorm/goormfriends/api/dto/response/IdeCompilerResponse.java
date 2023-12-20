@@ -13,7 +13,7 @@ import lombok.Setter;
 public class IdeCompilerResponse {
 
     private Long userId;
-    private String problemId;
+    private Long problemId;
     private boolean state;
 
     public static IdeCompilerResponse from(Ide ide) {

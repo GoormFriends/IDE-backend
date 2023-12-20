@@ -1,6 +1,8 @@
 package com.goorm.goormfriends.api.service;
 
+import com.goorm.goormfriends.api.dto.request.UpdateUserInfoRequest;
 import com.goorm.goormfriends.api.dto.response.LoginResponse;
+import com.goorm.goormfriends.api.dto.response.UserInfoRespone;
 import com.goorm.goormfriends.common.jwt.TokenProvider;
 import com.goorm.goormfriends.db.entity.RefreshToken;
 import com.goorm.goormfriends.db.entity.User;
@@ -72,6 +74,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User getUser(String email) throws Exception {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new Exception("해당 사용자를 찾을 수 없습니다."));
+    }
+    @Override
     public LoginResponse getLoginUser(String email) throws Exception {
         LoginResponse result = null;
         // email을 통해 유저 조회
@@ -90,5 +97,23 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean existsByNickname(String nickname) throws Exception {
         return userRepository.existsByNickname(nickname);
+    }
+    @Override
+    public UserInfoRespone setUserInfo(UpdateUserInfoRequest updateUserInfoRequest) throws Exception{
+        Long userId = updateUserInfoRequest.getUserId();
+
+        User updateUser = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception("can't find user"));
+
+        updateUser.setNickname(updateUserInfoRequest.getNickname());
+        updateUser.setProfileImage(updateUserInfoRequest.getProfileImage());
+        updateUser = userRepository.save(updateUser);
+        return new UserInfoRespone(updateUser);
+    }
+
+
+    @Override
+    public void deleteUser(User user) throws Exception {
+        userRepository.deleteById(user.getId());
     }
 }

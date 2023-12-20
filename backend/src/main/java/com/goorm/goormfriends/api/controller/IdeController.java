@@ -5,11 +5,13 @@ import com.goorm.goormfriends.api.dto.response.IdeCompilerResponse;
 import com.goorm.goormfriends.api.dto.response.IdeResponse;
 import com.goorm.goormfriends.api.dto.response.WrapperResponse;
 import com.goorm.goormfriends.api.service.IdeService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Transactional
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/solve")
@@ -17,10 +19,10 @@ public class IdeController {
 
         private final IdeService ideService;
 
-        //코드 입력
+//        코드 입력
         @PostMapping("/{userId}/{problemId}")
         public ResponseEntity<WrapperResponse<IdeResponse>> addInput(@PathVariable Long userId,
-                                                                     @PathVariable String problemId,
+                                                                     @PathVariable Long problemId,
                                                                      @RequestBody IdeRequest ideRequest) {
                 IdeResponse ideResponse = ideService.addInput(userId, problemId, ideRequest);
                 WrapperResponse<IdeResponse> wrapperResponse = new WrapperResponse<>(ideResponse);
@@ -28,9 +30,9 @@ public class IdeController {
                 return new ResponseEntity<>(wrapperResponse, HttpStatus.OK);
         }
 
-        // 결과 출력
+//         결과 출력
 //        @GetMapping("/{userId}/{problemId}")
-//        public ResponseEntity<WrapperResponse<IdeCompilerResponse>> getOutput(@PathVariable Long userId, @PathVariable String problemId) {
+//        public ResponseEntity<WrapperResponse<IdeCompilerResponse>> getOutput(@PathVariable(name="userId") Long userId, @PathVariable(name="problemId") Long problemId) {
 //                IdeCompilerResponse compilerResponse = ideService.getOutput(userId, problemId);
 //                WrapperResponse<IdeCompilerResponse> wrapperResponse = new WrapperResponse<>(compilerResponse);
 //                return ResponseEntity.ok(wrapperResponse);

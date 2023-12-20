@@ -30,7 +30,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         // redirect 할 url 지정해주기
         String targetUrl = determineTargetUrl(request, response, authentication);
-        System.out.println("targetUrl " + targetUrl);
         if (response.isCommitted()) {
             return;
         }
@@ -38,16 +37,17 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        System.out.println(authentication);
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
 
         // 소셜 로그인 성공후 이동할 페이지
-        String targetUrl = "/oauth";
+        String targetUrl = "http://localhost:3000/oauth";
         // 추가 정보가 입력되어 있다면 로그인 처리
         if (user.getNickname() != null || user.getProfileImage() != null) {
             // 토큰 정보 저장하는 페이지로 이동
-            targetUrl = "/oauth2";
-            System.out.println("targetUrl/oauth2 " + targetUrl);
+            targetUrl = "http://localhost:3000/oauth2";
+            //System.out.println("targetUrl/oauth2 " + targetUrl);
             // 인증 정보를 기반으로 토큰 생성~~
             String accessToken = tokenProvider.generateAccessToken(authentication);
             String refreshToken = tokenProvider.generateRefreshToken();
