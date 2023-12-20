@@ -12,7 +12,7 @@ import java.util.List;
 public class Problem {
     @Id
     @Column(name="problem_id")
-    private String id;
+    private Long id;
     private String title;
     private String content;
     private Long level;

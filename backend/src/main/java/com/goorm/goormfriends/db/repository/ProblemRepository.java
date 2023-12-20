@@ -16,8 +16,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     @Query("SELECT p FROM Problem p JOIN p.ides i WHERE i.user.id = :userId")
     List<Problem> findAllByUserId(@Param("userId") Long userId);
 
-    // 사용자 아이디만을 통해 작성코드 관리하는 problem 환경 조회
-    Optional<Problem> findUserCodeByUserId(Long userId);
+
 
 
 }
