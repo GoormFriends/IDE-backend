@@ -12,7 +12,8 @@ public class Ide {
     @Id @GeneratedValue
     @Column(name = "ide_id")
     private Long id;
-    private boolean state;
+
+    private State state;
 
     @Column(length = 1000)
     private String usercode;
