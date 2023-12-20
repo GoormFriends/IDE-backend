@@ -1,5 +1,6 @@
 package com.goorm.goormfriends.api.service;
 
+import com.goorm.goormfriends.api.dto.criteria.ProblemSearchCriteria;
 import com.goorm.goormfriends.api.dto.response.CustomDirectoryInfo;
 import com.goorm.goormfriends.api.dto.response.ProblemDetailsResponse;
 import com.goorm.goormfriends.api.dto.response.ProblemResponse;
@@ -7,8 +8,10 @@ import com.goorm.goormfriends.api.dto.response.TestCaseInfo;
 import com.goorm.goormfriends.db.entity.*;
 import com.goorm.goormfriends.db.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,31 +31,32 @@ public class ProblemService {
 
     // 특정 userId에 연결된 모든 Problem의 정보와 해당 Problem에 연결된 Ide 상태 및 CustomDirectory 이름을 반환
     public List<ProblemResponse> getProblemsByUserId(Long userId) {
-        List<Problem> problems = problemRepository.findAllByUserId(userId);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        List<Problem> problems = problemRepository.findAll(); // 모든 문제 조회
 
         return problems.stream().map(problem -> {
             List<Ide> ides = ideRepository.findAllByProblemId(problem.getId());
+            List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
 
-            // 해당 userId와 연관된 첫 번째 Ide의 상태만을 반환
+            // 해당 userId와 연관된 첫 번째 Ide의 상태를 추출
             Boolean ideState = ides.stream()
-                    .filter(ide -> ide.getUser().equals(user))
+                    .filter(ide -> ide.getUser().getId().equals(userId))
                     .map(Ide::isState)
                     .findFirst()
-                    .orElse(null); // 사용자와 연관된 Ide가 없을 경우 null 반환
+                    .orElse(null); // 연관된 Ide가 없을 경우 null 반환
 
-            List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
+            // 해당 userId와 연관된 CustomDirectory 정보 추출
             List<CustomDirectoryInfo> customDirectoryInfos = customDirectoryProblems.stream()
-                    .filter(cdp -> cdp.getCustomDirectory().getUser().equals(user))
+                    .filter(cdp -> cdp.getCustomDirectory().getUser().getId().equals(userId))
                     .map(cdp -> new CustomDirectoryInfo(cdp.getCustomDirectory().getId(), cdp.getCustomDirectory().getDirectory_name()))
                     .collect(Collectors.toList());
 
             return new ProblemResponse(problem.getId(), problem.getTitle(), problem.getLevel(),
                     ideState,
-                    customDirectoryInfos);
+                    customDirectoryInfos.isEmpty() ? null : customDirectoryInfos); // 비어있는 경우 null 반환
         }).collect(Collectors.toList());
     }
+
+
 
     public ProblemDetailsResponse getProblemDetails(Long userId, Long problemId) {
         User user = userRepository.findById(userId)
@@ -83,6 +87,7 @@ public class ProblemService {
         ProblemDetailsResponse response = new ProblemDetailsResponse();
         response.setUserId(userId);
         response.setProblemId(problemId);
+        response.setTitle(problem.getTitle());
         response.setUsercode(ide.getUsercode());
         response.setContent(problem.getContent());
         response.setLevel(problem.getLevel());

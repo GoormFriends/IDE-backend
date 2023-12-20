@@ -12,6 +12,7 @@ import java.util.List;
 public class ProblemDetailsResponse {
     private Long userId;
     private Long problemId;
+    private String title;
     private String usercode;
     private String content;
     private Long level;
