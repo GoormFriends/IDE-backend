@@ -18,9 +18,11 @@ public class ProblemController {
     private final ProblemService problemService;
 
     // 사용자 ID에 따라 문제 목록을 조회하는 엔드포인트
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<ProblemResponse>> getProblemsByUserId(@PathVariable("userId") Long userId) {
         List<ProblemResponse> problems = problemService.getProblemsByUserId(userId);
         return ResponseEntity.ok(problems);
     }
+
+
 }
