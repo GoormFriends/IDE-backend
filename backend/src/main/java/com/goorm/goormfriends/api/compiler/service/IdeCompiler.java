@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class IdeCompiler {
 
-//	메모리 내에서 코드 컴파일
+	//	메모리 내에서 코드 컴파일
 //	JavaCompiler는 자바 표준 라이브러리 (자바 표준 런타임 환경 = JRE , 지금 사용한 클래스는 JDK)
 	private final JavaCompiler compiler;
 
-//	JavaFileManager = 메모리 내의 Java 코드 컴파일된 바이트코드 관리
+	//	JavaFileManager = 메모리 내의 Java 코드 컴파일된 바이트코드 관리
 //	ForwardingJavaFileManager = JavaFileManager의 기능을 유지 + 필요한 추가 로직 구현
 	private final JavaFileManager fileManager;
 
@@ -48,7 +48,7 @@ public class IdeCompiler {
 	}
 
 
-//	실제 컴파일 작업 성공여부 (자바소스코드 매개변수, 오류메세지 매개변수)
+	//	실제 컴파일 작업 성공여부 (자바소스코드 매개변수, 오류메세지 매개변수)
 	private boolean compileSource(String sourceCode, StringWriter output) {
 
 //		JavaFileObject = 소스코드를 읽고 처리하기 위한 객체
@@ -70,13 +70,12 @@ public class IdeCompiler {
 		if (!sourceCode.contains("class")) {
 			sourceCode = "public class " + className + " {\n" + sourceCode + "\n}";
 		}
-
-//		자바소스를 컴파일 하기 위하 가상의 소스 파일 객체 생성하고 이 파일의 식별자가 해당경로
 		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
 			@Override //getCharContent: 파일 내용 문자열으로 반환
 			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
 				return sourceCode;
 			}
+
 		};
 	}
 

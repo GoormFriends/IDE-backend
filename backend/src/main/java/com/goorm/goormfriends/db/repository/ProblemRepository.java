@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
@@ -15,6 +14,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     // 사용자 ID를 사용하여 Problem을 조회하는 사용자 정의 쿼리
     @Query("SELECT p FROM Problem p JOIN p.ides i WHERE i.user.id = :userId")
     List<Problem> findAllByUserId(@Param("userId") Long userId);
+
 
 
 
