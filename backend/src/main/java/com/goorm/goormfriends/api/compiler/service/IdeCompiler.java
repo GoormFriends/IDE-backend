@@ -63,10 +63,17 @@ public class IdeCompiler {
 
 	// 가상의 Java 소스 파일 객체를 생성하는 메서드
 	private JavaFileObject createSourceFile(String sourceCode) {
+		String className = "UserCode"; // 또는 Main, 사용자 코드에 따라 변경될 수 있음
+		String fileName = className + ".java";
+
+		// 사용자 코드가 클래스를 포함하지 않는 경우, UserCode 클래스로 감싼다
+		if (!sourceCode.contains("class")) {
+			sourceCode = "public class " + className + " {\n" + sourceCode + "\n}";
+		}
+
 //		자바소스를 컴파일 하기 위하 가상의 소스 파일 객체 생성하고 이 파일의 식별자가 해당경로
-		return new SimpleJavaFileObject(URI.create("string:///UserCode.java"), JavaFileObject.Kind.SOURCE) {
-			@Override
-//			getCharContent: 파일 내용 문자열으로 반환
+		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
+			@Override //getCharContent: 파일 내용 문자열으로 반환
 			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
 				return sourceCode;
 			}

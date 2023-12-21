@@ -3,6 +3,7 @@ package com.goorm.goormfriends.api.dto.response;
 import com.goorm.goormfriends.db.entity.CustomDirectory;
 import com.goorm.goormfriends.db.entity.Ide;
 import com.goorm.goormfriends.db.entity.Problem;
+import com.goorm.goormfriends.db.entity.State;
 import com.goorm.goormfriends.db.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class ProblemResponse {
     private Long problemId;
     private String title;
     private Long level;
+
     private Boolean ideState; // 단일 Boolean 값으로 수정
     private List<CustomDirectoryInfo> customDirectoryInfos; // CustomDirectoryInfo 리스트
 

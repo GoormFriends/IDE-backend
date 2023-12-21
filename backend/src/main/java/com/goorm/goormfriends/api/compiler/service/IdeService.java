@@ -22,8 +22,8 @@ public class IdeService {
 
     public IdeResponse inputSaveAndCompile(Long userId, Long problemId, IdeRequest request) {
         // 현재 활성 문제 찾기
-        Problem activeProblem = problemRepository.findUserCodeByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Active problem not found for user id: " + userId));
+        Problem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new RuntimeException("Problem not found with id: " + problemId));
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
@@ -31,7 +31,7 @@ public class IdeService {
 // Ide 엔티티 생성 및 저장
         Ide ide = new Ide();
         ide.setUser(user);
-        ide.setProblem(activeProblem);
+        ide.setProblem(problem);
         ide.setUsercode(request.getUsercode());
         ideRepository.save(ide);
 
