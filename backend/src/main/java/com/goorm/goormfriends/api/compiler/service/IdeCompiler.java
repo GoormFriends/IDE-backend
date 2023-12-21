@@ -4,6 +4,8 @@ import javax.tools.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
@@ -63,13 +65,14 @@ public class IdeCompiler {
 
 	// 가상의 Java 소스 파일 객체를 생성하는 메서드
 	private JavaFileObject createSourceFile(String sourceCode) {
-		String className = "UserCode"; // 또는 Main, 사용자 코드에 따라 변경될 수 있음
-		String fileName = className + ".java";
-
-		// 사용자 코드가 클래스를 포함하지 않는 경우, UserCode 클래스로 감싼다
-		if (!sourceCode.contains("class")) {
-			sourceCode = "public class " + className + " {\n" + sourceCode + "\n}";
+		Pattern pattern = Pattern.compile("public\\s+class\\s+([\\w]+)\\s*\\{?");
+		Matcher matcher = pattern.matcher(sourceCode);
+		String className = "UserCode";
+		if (matcher.find()) {
+			// 사용자가 제공한 클래스 이름을 사용
+			className = matcher.group(1);
 		}
+		String fileName = className + ".java";
 		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
 			@Override //getCharContent: 파일 내용 문자열으로 반환
 			public CharSequence getCharContent(boolean ignoreEncodingErrors) {

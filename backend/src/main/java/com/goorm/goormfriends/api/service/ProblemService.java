@@ -38,9 +38,9 @@ public class ProblemService {
             List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
 
             // 해당 userId와 연관된 첫 번째 Ide의 상태를 추출
-            Boolean ideState = ides.stream()
+            State ideState = ides.stream()
                     .filter(ide -> ide.getUser().getId().equals(userId))
-                    .map(Ide::isState)
+                    .map(Ide::getState)
                     .findFirst()
                     .orElse(null); // 연관된 Ide가 없을 경우 null 반환
 
