@@ -1,6 +1,8 @@
 package com.goorm.goormfriends.common.oauth;
 
 import com.goorm.goormfriends.db.entity.User;
+import jakarta.persistence.OneToOne;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,8 +22,10 @@ import java.util.Map;
 @ToString
 @Setter
 @NoArgsConstructor
-public class PrincipalDetails implements UserDetails, OAuth2User {
+public class PrincipalDetails implements UserDetails, OAuth2User
+ {
 
+    @Getter
     private User user;
     private Map<String, Object> attributes;
 
@@ -32,6 +36,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println("PrincipalDetails-RoleUser");
         List<GrantedAuthority> listRole = new ArrayList<>();
         listRole.add(new SimpleGrantedAuthority("ROLE_USER"));
         return listRole;
@@ -75,6 +80,4 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public String getName() {
         return null;
     }
-
-    public User getUser() {return user;}
 }

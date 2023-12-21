@@ -18,5 +18,4 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
 
 
-
 }

@@ -18,7 +18,7 @@ public class Ide {
     @Column(length = 1000)
     private String usercode;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -28,12 +28,16 @@ public class Ide {
 
     public void setUser(User user){
         this.user = user;
-        user.getIdes().add(this);
+        if (user != null ) {
+            user.getIdes().add(this);
+        }
     }
 
     public void setProblem(Problem problem){
         this.problem = problem;
-        problem.getIdes().add(this);
+        if (problem != null) {
+            problem.getIdes().add(this);
+        }
     }
 
 

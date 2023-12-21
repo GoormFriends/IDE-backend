@@ -10,7 +10,7 @@ import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.IdeRepository;
 import com.goorm.goormfriends.db.repository.ProblemRepository;
 import com.goorm.goormfriends.db.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -29,6 +29,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throws IOException, ServletException {
 
         // redirect 할 url 지정해주기
+        System.out.println("OAuth2AuthenticationSuccessHandler - onAuthenticationSuccess");
         String targetUrl = determineTargetUrl(request, response, authentication);
         if (response.isCommitted()) {
             return;
@@ -37,7 +38,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        System.out.println(authentication);
+        System.out.println("OAuth2AuthenticationSuccessHandler - determineTargetURl");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
 

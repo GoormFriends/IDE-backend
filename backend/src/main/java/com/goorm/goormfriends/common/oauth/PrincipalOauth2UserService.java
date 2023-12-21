@@ -2,7 +2,6 @@ package com.goorm.goormfriends.common.oauth;
 
 import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -16,7 +15,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@Transactional
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
@@ -26,12 +24,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         // code 를 통해 구성한 정보
+        System.out.println("PrincipalOAuth2UserService - loadUser");
         return processOAuth2User(userRequest, oAuth2User);
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User) throws OAuth2AuthenticationException{
 
         OAuth2UserInfo oAuth2UserInfo = null;
+        System.out.println("PrincipalService processOAuth2User");
         if (userRequest.getClientRegistration().getRegistrationId().equals("github")) {
             oAuth2UserInfo = new GithubUserInfo(oAuth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")){

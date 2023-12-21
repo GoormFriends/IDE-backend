@@ -4,7 +4,7 @@ import com.goorm.goormfriends.db.entity.Ide;
 import com.goorm.goormfriends.db.entity.ProblemTestCase;
 import com.goorm.goormfriends.db.repository.IdeRepository;
 import com.goorm.goormfriends.db.repository.ProblemTestCaseRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

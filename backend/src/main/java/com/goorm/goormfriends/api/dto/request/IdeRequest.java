@@ -3,8 +3,10 @@ package com.goorm.goormfriends.api.dto.request;
 import com.goorm.goormfriends.db.entity.Problem;
 import com.goorm.goormfriends.db.entity.User;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class IdeRequest {
 
     private Long userId; //유저아이디

@@ -8,7 +8,7 @@ import com.goorm.goormfriends.db.entity.RefreshToken;
 import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.RefreshTokenRepository;
 import com.goorm.goormfriends.db.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;

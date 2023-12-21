@@ -9,7 +9,12 @@ import com.goorm.goormfriends.db.entity.*;
 import com.goorm.goormfriends.db.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.transaction.Transactional;
+import com.goorm.goormfriends.db.repository.CustomDirectoryRepository;
+import com.goorm.goormfriends.db.entity.Problem;
+import com.goorm.goormfriends.db.entity.CustomDirectory;
+import com.goorm.goormfriends.db.entity.Ide;
+import com.goorm.goormfriends.db.repository.ProblemRepository;
+import com.goorm.goormfriends.db.repository.IdeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,7 +24,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ProblemService {
     private final ProblemRepository problemRepository;

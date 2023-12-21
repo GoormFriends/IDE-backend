@@ -3,9 +3,9 @@ package com.goorm.goormfriends.common.oauth;
 import java.util.Map;
 
 public class KakaoUserInfo implements OAuth2UserInfo{
-    private Map<String, Object> attributes;
-    private Map<String, Object> attributesAccount;
-    private Map<String, Object> attributesProfile;
+    private final Map<String, Object> attributes;
+    private final Map<String, Object> attributesAccount;
+    private final Map<String, Object> attributesProfile;
 
     public KakaoUserInfo(Map<String, Object> attributes){
         /*
@@ -40,19 +40,16 @@ public class KakaoUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getEmail() {
-        //System.out.println("email " + attributesAccount.get("email").toString());
         return attributesAccount.get("email") == null ? null : attributesAccount.get("email").toString();
     }
 
     @Override
     public String getNickname() {
-        System.out.println("nickname " + attributesProfile.get("nickname").toString());
         return attributesProfile.get("nickname").toString();
     }
 
     @Override
     public String getProfileImage() {
-        System.out.println();
         return attributesProfile.get("profile_image_url") == null ? null : attributesProfile.get("profile_image_url").toString();
     }
 }
