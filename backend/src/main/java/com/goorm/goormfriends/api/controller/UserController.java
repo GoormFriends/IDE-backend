@@ -126,5 +126,12 @@ public class UserController {
 
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @GetMapping("logout")
+    public ResponseEntity<Void> logout(@AuthenticationPrincipal User user,
+                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
+        CookieUtil.deleteCookie(request, response, "refreshToken");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 
