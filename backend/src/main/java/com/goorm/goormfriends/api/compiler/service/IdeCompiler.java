@@ -74,10 +74,10 @@ public class IdeCompiler {
 		}
 		String fileName = className + ".java";
 		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
-			@Override //getCharContent: 파일 내용 문자열으로 반환
-			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
-				return sourceCode;
-			}
+//			@Override //getCharContent: 파일 내용 문자열으로 반환
+//			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+//				return sourceCode;
+//			}
 
 		};
 	}
