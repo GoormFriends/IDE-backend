@@ -38,7 +38,7 @@ public class DirectoryServiceImpl implements DirectoryService{
             List<DirectoryProblemResponse> directoryProblemResponses = new ArrayList<>();
             for (CustomDirectoryProblem customDirectoryProblem : directoryProblemList) {
                 Problem problem = customDirectoryProblem.getProblem();
-                DirectoryProblemResponse directoryProblemResponse = new DirectoryProblemResponse(customDirectoryProblem, problem.getLevel());
+                DirectoryProblemResponse directoryProblemResponse = new DirectoryProblemResponse(customDirectoryProblem, problem.getTitle(), problem.getLevel());
                 directoryProblemResponses.add(directoryProblemResponse);
             }
             DirectoryListResponse directoryListResponse = new DirectoryListResponse(customDirectory,directoryProblemResponses);
@@ -105,7 +105,7 @@ public class DirectoryServiceImpl implements DirectoryService{
         if (problem.isPresent() && customDirectory.isPresent()) {
             CustomDirectoryProblem customDirectoryProblem = new CustomDirectoryProblem(customDirectory.get(), problem.get());
             customDirectoryProblemRepository.save(customDirectoryProblem);
-            return new DirectoryProblemResponse(customDirectoryProblem, problem.get().getLevel());
+            return new DirectoryProblemResponse(customDirectoryProblem, problem.get().getTitle(),problem.get().getLevel());
         } else {
             throw new IllegalArgumentException("CustomDirectory & Problem 이 없음");
         }
