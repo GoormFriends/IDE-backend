@@ -3,7 +3,6 @@ package com.goorm.goormfriends.api.service;
 import com.goorm.goormfriends.api.dto.request.*;
 import com.goorm.goormfriends.api.dto.response.DirectoryListResponse;
 import com.goorm.goormfriends.api.dto.response.DirectoryProblemResponse;
-import com.goorm.goormfriends.db.entity.CustomDirectory;
 
 import java.util.List;
 
@@ -15,8 +14,8 @@ public interface DirectoryService {
 
     void deleteDirectory(DeleteDirectoryRequest deleteDirectoryRequest) throws Exception;
 
-    DirectoryProblemResponse addDirectoryProblem(CreateDirectoryProblemRequest createDirectoryProblemRequest)
+    DirectoryProblemResponse addDirectoryProblem(DirectoryProblemRequest directoryProblemRequest)
             throws Exception;
 
-    void deleteDirectoryProblem(DeleteDirectoryProblemRequest deleteDirectoryProblemRequest) throws Exception;
+    void deleteDirectoryProblem(DirectoryProblemRequest directoryProblemRequest) throws Exception;
 }
