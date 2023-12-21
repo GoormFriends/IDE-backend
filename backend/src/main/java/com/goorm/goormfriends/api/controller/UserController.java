@@ -26,7 +26,6 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@Transactional
 @RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {
@@ -61,7 +60,8 @@ public class UserController {
     @DeleteMapping("info")
     public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal User user) throws Exception {
 
-        com.goorm.goormfriends.db.entity.User deleteUser = userService.getUser(user.getUsername());
+        com.goorm.goormfriends.db.entity.User deleteUser;
+        deleteUser = userService.getUser(user.getUsername());
 
         if (deleteUser.getProvider().equals("kakao")) {
             String providerId = deleteUser.getProviderId();
