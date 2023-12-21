@@ -63,8 +63,11 @@ public class ProblemService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Problem problem = problemRepository.findById(problemId)
                 .orElseThrow(() -> new EntityNotFoundException("Problem not found"));
+
+        // Ide 데이터 확인 및 새로 생성
         Ide ide = ideRepository.findByUserIdAndProblemId(userId, problemId)
-                .orElseThrow(() -> new EntityNotFoundException("Ide not found"));
+                .orElseGet(() -> createNewIde(user, problem));
+
         List<CustomDirectory> customDirectories = customDirectoryRepository.findByUserId(userId);
         if (customDirectories.isEmpty()) {
             throw new EntityNotFoundException("CustomDirectory not found for user id " + userId);
@@ -95,5 +98,13 @@ public class ProblemService {
         response.setTestCases(testCaseInfos); // 새로 추가된 필드 설정
 
         return response;
+    }
+
+    private Ide createNewIde(User user, Problem problem) {
+        Ide newIde = new Ide();
+        newIde.setUser(user);
+        newIde.setProblem(problem);
+        // 나머지 필드는 null로 초기화
+        return ideRepository.save(newIde);
     }
 }
