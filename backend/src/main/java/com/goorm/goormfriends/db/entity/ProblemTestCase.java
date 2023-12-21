@@ -10,7 +10,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter @Setter
 public class ProblemTestCase {
     @Id @GeneratedValue
-    @Column(name = "problom_test_case_id")
+    @Column(name = "problem_test_case_id")
     private Long id;
     private String input;
     private String output;

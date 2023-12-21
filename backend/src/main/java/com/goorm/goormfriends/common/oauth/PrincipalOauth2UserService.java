@@ -2,6 +2,7 @@ package com.goorm.goormfriends.common.oauth;
 
 import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
@@ -22,8 +24,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     //userRequest -> code를 받아서 accessToken을 응답받은 객체
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = super.loadUser(userRequest); // github 회원 프로필 조회
-        System.out.println(oAuth2User);
+        OAuth2User oAuth2User = super.loadUser(userRequest);
         // code 를 통해 구성한 정보
         return processOAuth2User(userRequest, oAuth2User);
     }
@@ -38,7 +39,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else {
             throw new NullPointerException();
         }
-        System.out.print("principalOauth2UserService " + oAuth2UserInfo);
         Optional<User> userOptional =
                 userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 

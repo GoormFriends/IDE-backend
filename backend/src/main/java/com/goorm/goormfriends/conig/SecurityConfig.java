@@ -66,21 +66,14 @@ public class SecurityConfig {
                                 .userInfoEndpoint(userInfo -> userInfo.userService(principalOauth2UserService))
                                 .successHandler(oAuth2AuthenticationSuccessHandler)
                                 .failureHandler(oAuth2AuthenticationFailureHandler)
-                        //.userService(principalOauth2UserService)
                 );
-        //.oauth2Login()
-        //.userInfoEndpoint()
-        //.userService(principalOauth2UserService)
-
-        //.successHandler(oAuth2AuthenticationSuccessHandler)
-        //.failureHandler(oAuth2AuthenticationFailureHandler);
 
         return http.build();
 
     }
 
     private static final String[] PERMIT_URL_ARRAY = {
-            ""
+            "/user/oauth/login"
     };
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -88,6 +81,7 @@ public class SecurityConfig {
 
         config.addAllowedOrigin("http://localhost:8081");
         config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedMethod("*"); // 모든 메소드 허용.
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

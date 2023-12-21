@@ -10,21 +10,23 @@ import com.goorm.goormfriends.db.entity.User;
 import com.goorm.goormfriends.db.repository.IdeRepository;
 import com.goorm.goormfriends.db.repository.ProblemRepository;
 import com.goorm.goormfriends.db.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class IdeService {
     private final IdeRepository ideRepository;
     private final ProblemRepository problemRepository;
     private final UserRepository userRepository;
- //   private final IdeCompilerService ideCompilerService;
+    private final IdeCompilerService ideCompilerService;
 
 
-    public IdeResponse addInput(Long userId, String problemId, IdeRequest request) {
+    public IdeResponse addInput(Long userId, Long problemId, IdeRequest request) {
         Problem problem = problemRepository.findById(request.getProblemId())
                 .orElseThrow(() -> new RuntimeException("Problem not found with id: " + request.getProblemId()));
 
