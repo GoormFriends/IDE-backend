@@ -8,6 +8,7 @@ import com.goorm.goormfriends.db.repository.ProblemTestCaseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class IdeCompilerService {
     private final IdeCompiler ideCompiler;
     private static final long TIMEOUT = 15000; // 15초
 
-
+    @Transactional
     public void executeCode(Long ideId) {
         Ide ide = ideRepository.findById(ideId).orElseThrow(
                 () -> new RuntimeException("IDE not found with id: " + ideId));

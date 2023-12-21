@@ -85,16 +85,26 @@ public class IdeCompiler {
 	// 컴파일된 클래스를 로드하는 메서드
 	private Class<?> loadCompiledClass() {
 		try {
-//			fileManager를 사용하여 클래스 로더를 얻는다
-//			getClassLoader는 클래스 로더하는데 사용되는 클래스로더 객체 반환
-//			여기서 클래스로더란 클래스를 가상머신이 이해할 수 있는 바이트 코드로 변환하는 것
-//			(null = 특정 클래스 로딩 위치를 지정X)
-//			문자열로 제공된 클래스 UserCode를 로드
-			return fileManager.getClassLoader(null).loadClass("UserCode");
-		}
-//		요청된 클래스를 찾을 수 없는 경우 예외 처리
-		catch (ClassNotFoundException e) {
+			// fileManager가 null이 아닌지 확인
+			if (fileManager == null) {
+				throw new IllegalStateException("FileManager가 초기화되지 않았습니다.");
+			}
 
+			// fileManager를 사용하여 클래스 로더를 얻는다.
+			// getClassLoader는 클래스를 로딩하는데 사용되는 클래스 로더 객체를 반환한다.
+			// 여기서 클래스 로더란 클래스를 가상머신이 이해할 수 있는 바이트 코드로 변환하는 것을 의미한다.
+			// (null = 특정 클래스 로딩 위치를 지정하지 않음)
+			ClassLoader classLoader = fileManager.getClassLoader(null);
+			// classLoader가 null이 아닌지 확인
+			if (classLoader == null) {
+				throw new IllegalStateException("클래스 로더를 가져오는 데 실패했습니다.");
+			}
+
+			// 문자열로 제공된 클래스 UserCode를 로드한다.
+			return classLoader.loadClass("UserCode");
+		}
+		// 요청된 클래스를 찾을 수 없는 경우 예외 처리
+		catch (ClassNotFoundException e) {
 			throw new IllegalStateException("클래스 로드에 실패했습니다", e);
 		}
 	}
