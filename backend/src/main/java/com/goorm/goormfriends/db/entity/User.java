@@ -36,13 +36,11 @@ public class User {
     @Column(nullable = false)
     private String providerId; // 소셜 로그인 ID
 
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Ide> ides = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomDirectory> customDirectory = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ide> ides = new ArrayList<>();
 
     public User(OAuth2UserInfo user) {
         this.email = user.getEmail();

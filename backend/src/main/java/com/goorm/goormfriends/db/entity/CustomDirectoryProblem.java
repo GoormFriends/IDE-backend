@@ -1,14 +1,14 @@
 package com.goorm.goormfriends.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.goorm.goormfriends.api.dto.request.CreateDirectoryProblemRequest;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Optional;
 
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
-@Getter @Setter
+@Getter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,10 +26,8 @@ public class CustomDirectoryProblem {
     @JoinColumn(name = "custom_directory_id")
     private CustomDirectory customDirectory;
 
-    public CustomDirectoryProblem(CreateDirectoryProblemRequest createDirectoryProblemRequest) {
-        this.problem = new Problem();
-        problem.setId(createDirectoryProblemRequest.getProblemId());
-        this.customDirectory = new CustomDirectory();
-        customDirectory.setId(createDirectoryProblemRequest.getDirectoryId());
+    public CustomDirectoryProblem(CustomDirectory customDirectory, Problem problem) {
+        this.problem = problem;
+        this.customDirectory = customDirectory;
     }
 }

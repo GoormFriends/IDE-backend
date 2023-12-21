@@ -15,8 +15,4 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     @Query("SELECT p FROM Problem p JOIN p.ides i WHERE i.user.id = :userId")
     List<Problem> findAllByUserId(@Param("userId") Long userId);
 
-
-
-
-
 }

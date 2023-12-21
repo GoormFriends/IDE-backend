@@ -3,7 +3,7 @@ package com.goorm.goormfriends.common.oauth;
 import java.util.Map;
 
 public class GithubUserInfo implements OAuth2UserInfo{
-    private Map<String, Object> attributes;
+    private final Map<String, Object> attributes;
 
     public GithubUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
