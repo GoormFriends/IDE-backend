@@ -1,6 +1,7 @@
 package com.goorm.goormfriends.api.compiler.service;
 
 import javax.tools.*;
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -34,7 +35,7 @@ public class IdeCompiler {
 	public Map<String, Object> compile(String sourceCode) {
 //		오류메세지 저장하기 위해서 만듬
 		StringWriter output = new StringWriter();
-
+		System.out.println(sourceCode);
 		boolean success = compileSource(sourceCode, output);
 
 		// 컴파일 결과를 저장하는 맵
@@ -73,11 +74,13 @@ public class IdeCompiler {
 			className = matcher.group(1);
 		}
 		String fileName = className + ".java";
+
+		System.out.println("filename = " + fileName);
 		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
-//			@Override //getCharContent: 파일 내용 문자열으로 반환
-//			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
-//				return sourceCode;
-//			}
+			@Override //getCharContent: 파일 내용 문자열으로 반환
+			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+				return sourceCode;
+			}
 
 		};
 	}
