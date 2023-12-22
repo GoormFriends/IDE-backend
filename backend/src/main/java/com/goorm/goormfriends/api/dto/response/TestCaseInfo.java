@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TestCaseInfo {
+    private Long TestCaseId;
     private String input;
     private String output;
 }
