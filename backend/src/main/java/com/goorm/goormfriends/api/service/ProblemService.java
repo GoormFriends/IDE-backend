@@ -87,7 +87,7 @@ public class ProblemService {
         // TestCaseInfo 리스트 생성
         List<TestCaseInfo> testCaseInfos = problemTestCaseRepository.findByProblemId(problemId)
                 .stream()
-                .map(ptc -> new TestCaseInfo(ptc.getInput(), ptc.getOutput()))
+                .map(ptc -> new TestCaseInfo(ptc.getId(),ptc.getInput(), ptc.getOutput()))
                 .collect(Collectors.toList());
 
         // ProblemDetailsResponse 객체 생성 및 필드 설정
