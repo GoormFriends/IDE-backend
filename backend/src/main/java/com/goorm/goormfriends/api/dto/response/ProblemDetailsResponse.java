@@ -15,7 +15,7 @@ public class ProblemDetailsResponse {
     private String title;
     private String usercode;
     private String content;
-    private Long level;
+    private String level;
     private List<CustomDirectoryInfo> customDirectoryInfos;
     private List<TestCaseInfo> testCases;
 

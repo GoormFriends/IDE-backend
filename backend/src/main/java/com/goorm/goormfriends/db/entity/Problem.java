@@ -16,7 +16,7 @@ public class Problem {
     private Long id;
     private String title;
     private String content;
-    private Long level;
+    private String level;
 
     @OneToMany(mappedBy = "problem")
     private List<ProblemTestCase> problemTestCases = new ArrayList<>();

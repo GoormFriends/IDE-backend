@@ -8,11 +8,11 @@ import lombok.ToString;
 @Getter
 public class DirectoryProblemResponse {
     private final Long problemNum;
-    private final Long problemLevel;
+    private final String problemLevel;
     private final String problemTitle;
     private final Long directoryProblemId;
 
-    public DirectoryProblemResponse(CustomDirectoryProblem customDirectoryProblem, String problemTitle, Long problemLevel) {
+    public DirectoryProblemResponse(CustomDirectoryProblem customDirectoryProblem, String problemTitle, String problemLevel) {
         this.directoryProblemId = customDirectoryProblem.getId();
         this.problemNum = customDirectoryProblem.getProblem().getId();
         this.problemLevel = problemLevel;

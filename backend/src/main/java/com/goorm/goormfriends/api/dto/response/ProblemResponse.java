@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class ProblemResponse {
     private Long problemId;
     private String title;
-    private Long level;
+    private String level;
 
     private State ideState; // 단일 Boolean 값으로 수정
     private List<CustomDirectoryInfo> customDirectoryInfos; // CustomDirectoryInfo 리스트
