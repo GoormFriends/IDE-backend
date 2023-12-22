@@ -7,8 +7,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class IdeCompiler {
 
@@ -23,11 +25,22 @@ public class IdeCompiler {
 	public IdeCompiler() {
 //		import javax.tools.JavaCompiler 클래스는 자바 플랫폼의 일부
 //		ToolProvider.getSystemJavaCompiler() 메서드를 사용해 자바를 컴파일 하는 기능
+		log.trace("Initializing IdeCompiler.");
 		compiler = ToolProvider.getSystemJavaCompiler();
+
+		if (compiler == null) {
+			log.trace("시스템 Java 컴파일러를 가져오는데 실패했습니다. JDK가 설치되어 있는지 확인하세요.");
+			throw new IllegalStateException("시스템 Java 컴파일러를 가져오는데 실패했습니다. JDK가 설치되어 있는지 확인하세요.");
+		}
 
 //		getStandardFileManager는 표준관리자의 가장 기본적인 구현
 //		null 값 부분 = 표준 파일 관리자 구성의 옵션(헤당 부분이 null이면 기본값)
 		fileManager = compiler.getStandardFileManager(null, null, null);
+		if (fileManager == null) {
+			log.trace("StandardFileManager를 초기화하는데 실패했습니다.");
+			throw new IllegalStateException("StandardFileManager를 초기화하는데 실패했습니다.");
+		}
+		log.trace("IdeCompiler initialized successfully.");
 	}
 
 	// 컴파일 메서드: 소스 코드(= 원래는 usercode인데 매개변수 사용한 거)를 받아 컴파일하고 결과를 반환
@@ -65,28 +78,32 @@ public class IdeCompiler {
 
 	// 가상의 Java 소스 파일 객체를 생성하는 메서드
 	private JavaFileObject createSourceFile(String sourceCode) {
-		Pattern pattern = Pattern.compile("public\\s+class\\s+([\\w]+)\\s*\\{?");
-		Matcher matcher = pattern.matcher(sourceCode);
-		String className = "UserCode";
-		if (matcher.find()) {
-			// 사용자가 제공한 클래스 이름을 사용
-			className = matcher.group(1);
-		}
+		String className = extractClassName(sourceCode);
 		String fileName = className + ".java";
 		return new SimpleJavaFileObject(URI.create("string:///" + fileName), JavaFileObject.Kind.SOURCE) {
-//			@Override //getCharContent: 파일 내용 문자열으로 반환
-//			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
-//				return sourceCode;
-//			}
-
+			@Override
+			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+				return sourceCode;
+			}
 		};
+	}
+
+	// 이 메서드는 public 또는 protected로 선언되어야 합니다.
+	public String extractClassName(String sourceCode) {
+		Matcher matcher = Pattern.compile("public\\s+class\\s+([\\w]+)\\s*\\{?").matcher(sourceCode);
+		if (matcher.find()) {
+			return matcher.group(1);
+		}
+		return null;
 	}
 
 	// 컴파일된 클래스를 로드하는 메서드
 	private Class<?> loadCompiledClass() {
+		log.trace("Loading compiled class.");
 		try {
 			// fileManager가 null이 아닌지 확인
 			if (fileManager == null) {
+				log.trace("FileManager가 초기화되지 않았습니다.");
 				throw new IllegalStateException("FileManager가 초기화되지 않았습니다.");
 			}
 
@@ -97,14 +114,19 @@ public class IdeCompiler {
 			ClassLoader classLoader = fileManager.getClassLoader(null);
 			// classLoader가 null이 아닌지 확인
 			if (classLoader == null) {
+				log.trace("클래스 로더를 가져오는 데 실패했습니다.");
 				throw new IllegalStateException("클래스 로더를 가져오는 데 실패했습니다.");
 			}
 
+			log.trace("Class loader obtained, loading class 'UserCode'.");
 			// 문자열로 제공된 클래스 UserCode를 로드한다.
 			return classLoader.loadClass("UserCode");
 		}
 		// 요청된 클래스를 찾을 수 없는 경우 예외 처리
 		catch (ClassNotFoundException e) {
+			// 로그에 클래스 로더가 시도한 경로와 이름을 포함시킨다.
+			String classPath = fileManager.getClassLoader(null).getClass().getName();
+			log.trace("클래스 로드에 실패했습니다: {}", e.getMessage());
 			throw new IllegalStateException("클래스 로드에 실패했습니다", e);
 		}
 	}

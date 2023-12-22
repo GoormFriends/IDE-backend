@@ -33,7 +33,7 @@ public class IdeCompilerService {
         String userCode = ide.getUsercode();
         // 컴파일 오류가 있는 경우
         // Map에 에러키 있으면 컴파일 오류로 처리
-        Map<String, Object> compileResult = ideCompiler.compile(userCode);
+        Map<String, Object> compileResult = ideCompiler.compile(userCode); //
         if (compileResult.containsKey("error")) {
             log.error("Compile error: {}", compileResult.get("error"));
             ide.setState(State.COMPILE_ERROR);
