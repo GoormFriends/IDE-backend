@@ -10,13 +10,13 @@ import lombok.ToString;
 public class LoginResponse {
 
     private final Long userId;
-    private final String nickname;
+    private final String name;
     private final String profileImage;
     private final String email;
 
     public LoginResponse(User user) {
         this.userId = user.getId();
-        this.nickname = user.getNickname();
+        this.name = user.getNickname();
         this.profileImage = user.getProfileImage();
         this.email = user.getEmail();
     }
