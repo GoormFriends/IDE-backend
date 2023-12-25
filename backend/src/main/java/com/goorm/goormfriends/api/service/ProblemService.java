@@ -72,18 +72,6 @@ public class ProblemService {
         Ide ide = ideRepository.findByUserIdAndProblemId(userId, problemId)
                 .orElseGet(() -> createNewIde(user, problem));
 
-        List<CustomDirectory> customDirectories = customDirectoryRepository.findByUserId(userId);
-        if (customDirectories.isEmpty()) {
-            throw new EntityNotFoundException("CustomDirectory not found for user id " + userId);
-        }
-
-        // CustomDirectoryInfo 리스트 생성
-        List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problemId);
-        List<CustomDirectoryInfo> customDirectoryInfos = customDirectoryProblems.stream()
-                .filter(cdp -> cdp.getCustomDirectory().getUser().equals(user))
-                .map(cdp -> new CustomDirectoryInfo(cdp.getCustomDirectory().getId(), cdp.getCustomDirectory().getDirectory_name()))
-                .collect(Collectors.toList());
-
         // TestCaseInfo 리스트 생성
         List<TestCaseInfo> testCaseInfos = problemTestCaseRepository.findByProblemId(problemId)
                 .stream()
@@ -98,8 +86,7 @@ public class ProblemService {
         response.setUsercode(ide.getUsercode());
         response.setContent(problem.getContent());
         response.setLevel(problem.getLevel());
-        response.setCustomDirectoryInfos(customDirectoryInfos);
-        response.setTestCases(testCaseInfos); // 새로 추가된 필드 설정
+        response.setTestCases(testCaseInfos);
 
         return response;
     }
