@@ -108,7 +108,8 @@ public class ProblemService {
         Ide newIde = new Ide();
         newIde.setUser(user);
         newIde.setProblem(problem);
-        // 나머지 필드는 null로 초기화
+        newIde.setState(State.DEFAULT);
+        newIde.setUsercode("");
         return ideRepository.save(newIde);
     }
 }
