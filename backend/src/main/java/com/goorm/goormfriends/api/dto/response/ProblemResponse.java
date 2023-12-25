@@ -29,10 +29,11 @@ public class ProblemResponse {
                 .filter(ide -> ide.getUser().equals(user)) // 사용자와 연관된 Ide만 필터링
                 .map(Ide::getState)
                 .findFirst()
-                .orElse(null); // 사용자와 연관된 Ide가 없을 경우 null 반환
+                .orElse(State.DEFAULT); // 사용자와 연관된 Ide가 없을 경우 기본 상태 반환
 
+        // CustomDirectory가 null이 아닌 경우만 필터링
         List<CustomDirectoryInfo> directoryInfos = customDirectories.stream()
-                .filter(directory -> directory.getUser().equals(user)) // 사용자가 설정한 CustomDirectory만 필터링
+                .filter(directory -> directory != null && directory.getUser().equals(user)) // 사용자가 설정한 CustomDirectory만 필터링
                 .map(directory -> new CustomDirectoryInfo(directory.getId(), directory.getDirectory_name()))
                 .collect(Collectors.toList());
 
@@ -41,7 +42,7 @@ public class ProblemResponse {
                 problem.getTitle(),
                 problem.getLevel(),
                 ideState,
-                directoryInfos
+                directoryInfos.isEmpty() ? null : directoryInfos // 비어있는 경우 null 반환
         );
     }
 }

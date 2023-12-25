@@ -41,24 +41,24 @@ public class ProblemService {
             List<Ide> ides = ideRepository.findAllByProblemId(problem.getId());
             List<CustomDirectoryProblem> customDirectoryProblems = customDirectoryProblemRepository.findByProblemId(problem.getId());
 
-            // 해당 userId와 연관된 첫 번째 Ide의 상태를 추출
+            // 해당 userId와 연관된 첫 번째 Ide의 상태를 추출 (없으면 기본 상태를 반환)
             State ideState = ides.stream()
                     .filter(ide -> ide.getUser().getId().equals(userId))
                     .map(Ide::getState)
                     .findFirst()
-                    .orElse(null); // 연관된 Ide가 없을 경우 null 반환
+                    .orElse(State.DEFAULT); // 연관된 Ide가 없을 경우 기본 상태 반환
 
-            // 해당 userId와 연관된 CustomDirectory 정보 추출
+            // 해당 userId와 연관된 CustomDirectory 정보 추출 (없으면 빈 리스트 반환)
             List<CustomDirectoryInfo> customDirectoryInfos = customDirectoryProblems.stream()
                     .filter(cdp -> cdp.getCustomDirectory().getUser().getId().equals(userId))
                     .map(cdp -> new CustomDirectoryInfo(cdp.getCustomDirectory().getId(), cdp.getCustomDirectory().getDirectory_name()))
                     .collect(Collectors.toList());
 
             return new ProblemResponse(problem.getId(), problem.getTitle(), problem.getLevel(),
-                    ideState,
-                    customDirectoryInfos.isEmpty() ? null : customDirectoryInfos); // 비어있는 경우 null 반환
+                    ideState, customDirectoryInfos); // 빈 리스트도 반환될 수 있음
         }).collect(Collectors.toList());
     }
+
 
 
 
