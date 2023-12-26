@@ -9,7 +9,8 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @Getter @Setter
 public class Ide {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ide_id")
     private Long id;
 

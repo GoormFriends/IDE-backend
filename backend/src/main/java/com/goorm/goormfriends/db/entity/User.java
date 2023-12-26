@@ -42,6 +42,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ide> ides = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> chatMessagesList = new ArrayList<>();
+
     public User(OAuth2UserInfo user) {
         this.email = user.getEmail();
         this.nickname = user.getNickname();

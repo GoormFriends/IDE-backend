@@ -86,8 +86,9 @@ public class ProblemService {
         response.setUsercode(ide.getUsercode());
         response.setContent(problem.getContent());
         response.setLevel(problem.getLevel());
-        response.setTestCases(testCaseInfos);
-
+        //response.setCustomDirectoryInfos(customDirectoryInfos);
+        response.setTestCases(testCaseInfos); // 새로 추가된 필드 설정
+        //response.setIdeId(ide.getId());
         return response;
     }
 
