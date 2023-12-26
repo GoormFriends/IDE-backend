@@ -29,16 +29,16 @@ public class ChatService {
 
     public ChatMessage saveMessage(ChatMessageRequest chatMessageRequest)
             throws Exception {
-        if (!problemRepository.existsById(chatMessageRequest.getProblemId())) {
-            throw new Exception("Can't find Problem");
-        } else if (!userRepository.existsById(chatMessageRequest.getSenderId())) {
-            throw new Exception("Can't find owner");
-        }
+//        if (!problemRepository.existsById(chatMessageRequest.getProblemId())) {
+//            throw new Exception("Can't find Problem");
+//        } else if (!userRepository.existsById(chatMessageRequest.getOwnerId())) {
+//            throw new Exception("Can't find owner");
+//        }
         //Problem problem = problemRepository.findById(problemId).orElseThrow(() -> new Exception("Can't find Problem"));
         //User owner = userRepository.findById(ownerId).orElseThrow(() -> new Exception("Can't find Owner"));
         User user = userRepository.findById(chatMessageRequest.getUserId()).orElseThrow(() -> new Exception("Can't find user"));
 
-        ChatMessage chatMessage = new ChatMessage(chatMessageRequest, user);
+        ChatMessage chatMessage = new ChatMessage(chatMessageRequest);
 //        if (chatMessageRequest.getMessageType().equals(0)) {
 //            chatMessage.setMessage(user.getNickname() + "님이 입장하셨습니다.");
 //            log.info("입장 메세지 전송");
@@ -63,7 +63,7 @@ public class ChatService {
         List<ChatMessage> redisMessageList = redisTemplate.opsForList().range(roomId, 0, -1);
         if (redisMessageList == null || redisMessageList.isEmpty()) {
             log.info("bring by db");
-            List<ChatMessage> dbMessageList = chatMessageRepository.findBySenderIdAndProblemId(ownerId, problemId);
+            List<ChatMessage> dbMessageList = chatMessageRepository.findByOwnerIdAndProblemId(ownerId, problemId);
             messageList.addAll(dbMessageList);
         } else {
             messageList.addAll(redisMessageList);

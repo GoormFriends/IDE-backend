@@ -13,8 +13,10 @@ public class WebSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/chat")
-    public void sendMessage(ChatMessageRequest chatMessageRequest, SimpMessageHeaderAccessor accessor) {
-        simpMessagingTemplate.convertAndSend("/sub/chat/" + chatMessageRequest.getUserId() + "/" + chatMessageRequest.getProblemId(),
+    public void sendMessage(ChatMessageRequest chatMessageRequest
+//                            ,SimpMessageHeaderAccessor accessor
+    ) {
+        simpMessagingTemplate.convertAndSend("/sub/chat/" + chatMessageRequest.getOwnerId() + "/" + chatMessageRequest.getProblemId(),
                 chatMessageRequest);
     }
 }
