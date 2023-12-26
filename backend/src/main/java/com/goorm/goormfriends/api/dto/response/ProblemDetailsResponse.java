@@ -18,4 +18,6 @@ public class ProblemDetailsResponse {
     private String level;
     private List<TestCaseInfo> testCases;
 
+    //private Long ideId;
+
 }
