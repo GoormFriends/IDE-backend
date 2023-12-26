@@ -14,7 +14,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // SockJS FallBack 을 이용해 노출할 endpoint 설정
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat")
+        registry.addEndpoint("/ws")
                 //.setAllowedOriginPatterns("http://localhost:3000")
                 .setAllowedOriginPatterns("*");
         //.withSockJS();

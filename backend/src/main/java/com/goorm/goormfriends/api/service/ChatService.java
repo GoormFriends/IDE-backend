@@ -29,41 +29,25 @@ public class ChatService {
 
     public ChatMessage saveMessage(ChatMessageRequest chatMessageRequest)
             throws Exception {
-//        if (!problemRepository.existsById(chatMessageRequest.getProblemId())) {
-//            throw new Exception("Can't find Problem");
-//        } else if (!userRepository.existsById(chatMessageRequest.getOwnerId())) {
-//            throw new Exception("Can't find owner");
-//        }
-        //Problem problem = problemRepository.findById(problemId).orElseThrow(() -> new Exception("Can't find Problem"));
-        //User owner = userRepository.findById(ownerId).orElseThrow(() -> new Exception("Can't find Owner"));
-        User user = userRepository.findById(chatMessageRequest.getUserId()).orElseThrow(() -> new Exception("Can't find user"));
 
         ChatMessage chatMessage = new ChatMessage(chatMessageRequest);
-//        if (chatMessageRequest.getMessageType().equals(0)) {
-//            chatMessage.setMessage(user.getNickname() + "님이 입장하셨습니다.");
-//            log.info("입장 메세지 전송");
-//        } else if (chatMessageRequest.getMessageType().equals(2)) {
-//            chatMessage.setMessage(user.getNickname() + "님이 퇴장하셨습니다.");
-//            log.info("퇴장 메세지 전송");
-//        } else {
-//            log.info(chatMessageRequest.getMessage() + " 메시지 전송");
-//        }
+        log.info(chatMessageRequest.getMessage() + " 메시지 전송");
 
         chatMessageRepository.save(chatMessage);
-        redisTemplate.opsForList().leftPush(generateRoomId(chatMessageRequest.getUserId(), chatMessageRequest.getProblemId()), chatMessage);
-        redisTemplate.expire(generateRoomId(chatMessageRequest.getUserId(), chatMessageRequest.getProblemId()), 1, TimeUnit.DAYS);
+        redisTemplate.opsForList().leftPush(generateRoomId(chatMessageRequest.getOwnerId(), chatMessageRequest.getProblemId()), chatMessage);
+        redisTemplate.expire(generateRoomId(chatMessageRequest.getOwnerId(), chatMessageRequest.getProblemId()), 1, TimeUnit.DAYS);
 
         return chatMessage;
     }
 
-    public List<ChatMessage> loadMessage(Long ownerId, Long problemId) {
+    public List<ChatMessage> loadMessage(String ownerId, String problemId) {
         String roomId = generateRoomId(ownerId, problemId);
         List<ChatMessage> messageList = new ArrayList<>();
 
         List<ChatMessage> redisMessageList = redisTemplate.opsForList().range(roomId, 0, -1);
         if (redisMessageList == null || redisMessageList.isEmpty()) {
             log.info("bring by db");
-            List<ChatMessage> dbMessageList = chatMessageRepository.findByOwnerIdAndProblemId(ownerId, problemId);
+            List<ChatMessage> dbMessageList = chatMessageRepository.findByOwnerIdAndProblemId(Long.valueOf(ownerId), Long.valueOf(problemId));
             messageList.addAll(dbMessageList);
         } else {
             messageList.addAll(redisMessageList);
@@ -71,8 +55,8 @@ public class ChatService {
         return messageList;
     }
 
-    private String generateRoomId(Long userId, Long problemId) {
+    private String generateRoomId(String userId, String problemId) {
         // Implement logic to generate a unique room ID based on userId and problemId
-        return String.valueOf(userId) + "_" + String.valueOf(problemId);
+        return userId + "_" + problemId;
     }
 }

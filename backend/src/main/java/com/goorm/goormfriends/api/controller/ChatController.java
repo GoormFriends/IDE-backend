@@ -23,18 +23,18 @@ public class ChatController {
     private final ChatService chatService;
 
     //@MessageMapping("/chat")
-    public void message(@Payload ChatMessageRequest chatMessageRequest) {
-        try {
-            ChatMessage chatMessage = chatService.saveMessage(chatMessageRequest);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void message(@Payload ChatMessageRequest chatMessageRequest) {
+//        try {
+//            ChatMessage chatMessage = chatService.saveMessage(chatMessageRequest);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     // 메세지 불러오기
-    @GetMapping("/chat/{userId}/{problemId}")
-    public List<ChatMessage> loadMessage(@PathVariable("userId") Long userId,
-                                         @PathVariable("problemId") Long problemId) {
-        return chatService.loadMessage(userId, problemId);
-    }
+//    @GetMapping("/chat/{userId}/{problemId}")
+//    public List<ChatMessage> loadMessage(@PathVariable("userId") String userId,
+//                                         @PathVariable("problemId") String problemId) {
+//        return chatService.loadMessage(userId, problemId);
+//    }
 }
