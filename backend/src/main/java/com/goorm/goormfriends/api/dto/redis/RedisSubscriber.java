@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -27,6 +29,7 @@ public class RedisSubscriber implements MessageListener {
     public void onMessage(Message message, byte[] pattern) {
         log.info("구독");
         try {
+            System.out.println(message);
             // redis에서 발행된 데이터를 받아 deserialize
             String publishMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
             // ChatMessage 객채로 맵핑
@@ -34,6 +37,7 @@ public class RedisSubscriber implements MessageListener {
             // Websocket 구독자에게 채팅 메시지 Send
             messageSendingOperations.convertAndSend("/sub/chat/" + roomMessage.getOwnerId() + "/" + roomMessage.getProblemId()
                     , roomMessage);
+            System.out.println("RedisSubscriber");
         } catch (Exception e) {
             log.error(e.getMessage());
         }

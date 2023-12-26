@@ -26,7 +26,7 @@ public class ChatMessage{
 
     private Long problemId;
 
-    private Long userId;
+    private String userId;
 
     private String message;
 
@@ -35,7 +35,7 @@ public class ChatMessage{
     private String time;
 
     public ChatMessage(ChatMessageRequest messageRequest) {
-        this.userId = Long.valueOf(messageRequest.getUserId());
+        this.userId = messageRequest.getUserId();
         this.ownerId = Long.valueOf(messageRequest.getOwnerId());
         this.problemId = Long.valueOf(messageRequest.getProblemId());
         this.message = messageRequest.getMessage();
