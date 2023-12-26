@@ -24,40 +24,25 @@ public class ChatMessage{
 
     private Long ownerId;
 
-//    @ManyToOne(targetEntity = Problem.class, fetch = LAZY)
-//    @JoinColumn(name = "problem_id")
-//    private Problem problem;
-
     private Long problemId;
 
-//    @ManyToOne(targetEntity = ChatRoom.class, fetch = LAZY)
-//    @JoinColumn(name = "rood_id")
-//    private ChatRoom room;
-
-//    @ManyToOne(targetEntity = User.class, fetch = LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
     private Long userId;
 
     private String message;
 
-    //private Integer messageType;
-
-    //    @CreatedDate
-    private String createdDate;
+    private String userNickname;
+    private String userProfile;
+    private String time;
 
     public ChatMessage(ChatMessageRequest messageRequest) {
-        this.userId = messageRequest.getUserId();
-        this.ownerId = messageRequest.getOwnerId();
-        this.problemId = messageRequest.getProblemId();
+        this.userId = Long.valueOf(messageRequest.getUserId());
+        this.ownerId = Long.valueOf(messageRequest.getOwnerId());
+        this.problemId = Long.valueOf(messageRequest.getProblemId());
         this.message = messageRequest.getMessage();
-        //this.messageType = messageRequest.getMessageType();
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss"));
+        this.time = messageRequest.getTime();
+        this.userNickname = messageRequest.getUserNickname();
+        this.userProfile = messageRequest.getUserProfile();
+
     }
 
-//    public ChatMessage(String message, User user, ChatRoom chatRoom) {
-//        this.message = message;
-//        this.user = user;
-//        this.room = chatRoom;
-//    }
 }
