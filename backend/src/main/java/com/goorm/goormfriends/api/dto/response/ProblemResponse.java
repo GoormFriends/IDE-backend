@@ -42,7 +42,7 @@ public class ProblemResponse {
                 problem.getTitle(),
                 problem.getLevel(),
                 ideState,
-                directoryInfos.isEmpty() ? null : directoryInfos // 비어있는 경우 null 반환
+                directoryInfos
         );
     }
 }

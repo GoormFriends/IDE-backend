@@ -96,7 +96,13 @@ public class ProblemService {
         newIde.setUser(user);
         newIde.setProblem(problem);
         newIde.setState(State.DEFAULT);
-        newIde.setUsercode("");
+        newIde.setUsercode("import java.util.*;\n" +
+                "\n" +
+                "public class Main {\n" +
+                "    public static void main(String[] args){\n" +
+                "        \n" +
+                "    }\n" +
+                "}");
         return ideRepository.save(newIde);
     }
 }

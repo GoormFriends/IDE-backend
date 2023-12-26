@@ -15,6 +15,7 @@ public class Problem {
     @Column(name="problem_id")
     private Long id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
     private String level;
 
