@@ -22,12 +22,10 @@ public class ChatController {
     private final RedisPublisher redisPublisher;
     private final ChatService chatService;
 
-    @MessageMapping("/chat/{userId}/{problemId}")
-    public void message(@Payload ChatMessageRequest chatMessageRequest,
-                        @DestinationVariable Long userId,
-                        @DestinationVariable Long problemId) {
+    //@MessageMapping("/chat")
+    public void message(@Payload ChatMessageRequest chatMessageRequest) {
         try {
-            ChatMessage chatMessage = chatService.saveMessage(chatMessageRequest, userId, problemId);
+            ChatMessage chatMessage = chatService.saveMessage(chatMessageRequest);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -35,8 +33,8 @@ public class ChatController {
 
     // 메세지 불러오기
     @GetMapping("/chat/{userId}/{problemId}")
-    public List<ChatMessage> loadMessage(@PathVariable(name="userId") Long ownerId,
-                                         @PathVariable(name="problemId") Long problemId) {
-        return chatService.loadMessage(ownerId, problemId);
+    public List<ChatMessage> loadMessage(@PathVariable("userId") Long userId,
+                                         @PathVariable("problemId") Long problemId) {
+        return chatService.loadMessage(userId, problemId);
     }
 }

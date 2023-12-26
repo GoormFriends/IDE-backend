@@ -22,7 +22,7 @@ public class ChatMessage{
     @Column(name = "message_id")
     private Long id;
 
-    private Long ownerId;
+    private Long senderId;
 
 //    @ManyToOne(targetEntity = Problem.class, fetch = LAZY)
 //    @JoinColumn(name = "problem_id")
@@ -40,17 +40,17 @@ public class ChatMessage{
 
     private String message;
 
-    private Integer messageType;
+    //private Integer messageType;
 
     //    @CreatedDate
     private String createdDate;
 
-    public ChatMessage(ChatMessageRequest messageRequest, User user, Long ownerId, Long problemId) {
+    public ChatMessage(ChatMessageRequest messageRequest, User user) {
         this.user = user;
-        this.ownerId = ownerId;
-        this.problemId = problemId;
+        this.senderId = messageRequest.getSenderId();
+        this.problemId = messageRequest.getProblemId();
         this.message = messageRequest.getMessage();
-        this.messageType = messageRequest.getMessageType();
+        //this.messageType = messageRequest.getMessageType();
         this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss"));
     }
 

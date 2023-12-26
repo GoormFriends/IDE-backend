@@ -71,7 +71,7 @@ public class ProblemService {
         // Ide 데이터 확인 및 새로 생성
         Ide ide = ideRepository.findByUserIdAndProblemId(userId, problemId)
                 .orElseGet(() -> createNewIde(user, problem));
-
+        System.out.println(ide);
         // TestCaseInfo 리스트 생성
         List<TestCaseInfo> testCaseInfos = problemTestCaseRepository.findByProblemId(problemId)
                 .stream()
