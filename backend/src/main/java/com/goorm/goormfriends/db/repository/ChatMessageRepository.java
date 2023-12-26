@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
 
-    List<ChatMessage> findBySenderIdAndProblemId(Long senderId, Long problemId);
+    List<ChatMessage> findByOwnerIdAndProblemId(Long ownerId, Long problemId);
 }

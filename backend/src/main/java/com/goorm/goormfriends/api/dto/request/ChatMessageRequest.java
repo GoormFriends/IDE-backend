@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 public class ChatMessageRequest {
 
-    private Long senderId;
+    private Long ownerId;
     private Long problemId;
     private Long userId;
     private String message;
