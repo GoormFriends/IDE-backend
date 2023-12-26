@@ -49,17 +49,6 @@ public class RedisConfig{
         return new MessageListenerAdapter(subscriber, "sendMessage");
     }
 
-//    @Bean
-//    public RedisTemplate<String, ChatMessage> redisTemplate(RedisConnectionFactory connectionFactory) {
-//        RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();
-//
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setValueSerializer(new StringRedisSerializer());
-//        redisTemplate.setConnectionFactory(redisConnectionFactory());
-//
-//        return redisTemplate;
-//    }
-
     @Bean
     public RedisTemplate<String, ChatMessage> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();

@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,11 +48,12 @@ public class ChatService {
         List<ChatMessage> redisMessageList = redisTemplate.opsForList().range(roomId, 0, -1);
         if (redisMessageList == null || redisMessageList.isEmpty()) {
             log.info("bring by db");
-            List<ChatMessage> dbMessageList = chatMessageRepository.findByOwnerIdAndProblemId(Long.valueOf(ownerId), Long.valueOf(problemId));
+            List<ChatMessage> dbMessageList = chatMessageRepository.findByOwnerIdAndProblemIdOrderByTimeDesc(Long.valueOf(ownerId), Long.valueOf(problemId));
             messageList.addAll(dbMessageList);
         } else {
             messageList.addAll(redisMessageList);
         }
+        Collections.reverse(messageList);
         return messageList;
     }
 
