@@ -28,6 +28,7 @@ public class ChatMessage{
 
     private String userId;
 
+    @Column(columnDefinition = "TEXT")
     private String message;
 
     private String userNickname;
