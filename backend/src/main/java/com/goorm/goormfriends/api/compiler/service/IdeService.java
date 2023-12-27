@@ -50,7 +50,13 @@ public class IdeService {
     }
 
     private void updateIdeData(Ide ide, String userCode) {
-        String defaultUserCode = "기본 코드"; // 필요에 따라 변경
+        String defaultUserCode = "import java.util.*;\n" +
+                "\n" +
+                "public class Main {\n" +
+                "    public static void main(String[] args){\n" +
+                "        \n" +
+                "    }\n" +
+                "}"; // 필요에 따라 변경
         ide.setUsercode(userCode != null && !userCode.isEmpty() ? userCode : defaultUserCode);
     }
 

@@ -71,7 +71,7 @@ public class ProblemService {
         // Ide 데이터 확인 및 새로 생성
         Ide ide = ideRepository.findByUserIdAndProblemId(userId, problemId)
                 .orElseGet(() -> createNewIde(user, problem));
-
+        System.out.println(ide);
         // TestCaseInfo 리스트 생성
         List<TestCaseInfo> testCaseInfos = problemTestCaseRepository.findByProblemId(problemId)
                 .stream()
@@ -86,8 +86,9 @@ public class ProblemService {
         response.setUsercode(ide.getUsercode());
         response.setContent(problem.getContent());
         response.setLevel(problem.getLevel());
-        response.setTestCases(testCaseInfos);
-
+        //response.setCustomDirectoryInfos(customDirectoryInfos);
+        response.setTestCases(testCaseInfos); // 새로 추가된 필드 설정
+        //response.setIdeId(ide.getId());
         return response;
     }
 
@@ -96,7 +97,13 @@ public class ProblemService {
         newIde.setUser(user);
         newIde.setProblem(problem);
         newIde.setState(State.DEFAULT);
-        newIde.setUsercode("");
+        newIde.setUsercode("import java.util.*;\n" +
+                "\n" +
+                "public class Main {\n" +
+                "    public static void main(String[] args){\n" +
+                "        \n" +
+                "    }\n" +
+                "}");
         return ideRepository.save(newIde);
     }
 }

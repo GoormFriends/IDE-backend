@@ -27,7 +27,7 @@ public class ProblemController {
     }
 
     @GetMapping("/ide/{userId}/{problemId}")
-    public ProblemDetailsResponse getProblemDetails(@PathVariable Long userId, @PathVariable Long problemId) {
+    public ProblemDetailsResponse getProblemDetails(@PathVariable(name="userId") Long userId, @PathVariable(name="problemId") Long problemId) {
         return problemService.getProblemDetails(userId, problemId);
     }
 }
