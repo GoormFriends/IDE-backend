@@ -1,12 +1,10 @@
 package com.goorm.goormfriends.api.controller;
 
-import com.goorm.goormfriends.api.dto.redis.RedisPublisher;
 import com.goorm.goormfriends.api.dto.request.ChatMessageRequest;
 import com.goorm.goormfriends.api.service.ChatService;
 import com.goorm.goormfriends.db.entity.ChatMessage;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -22,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
-    private final RedisPublisher redisPublisher;
     private final ChatService chatService;
 
     @MessageMapping("/chat")

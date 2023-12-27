@@ -24,8 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class ChatService {
 
     private final ChatMessageRepository chatMessageRepository;
-    private final UserRepository userRepository;
-    private final ProblemRepository problemRepository;
     private final RedisTemplate<String, ChatMessage> redisTemplate;
 
     public ChatMessage saveMessage(ChatMessageRequest chatMessageRequest)

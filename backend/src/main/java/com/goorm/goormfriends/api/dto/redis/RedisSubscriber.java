@@ -11,8 +11,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
-
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -43,4 +41,3 @@ public class RedisSubscriber implements MessageListener {
         }
     }
 }
-
