@@ -70,6 +70,9 @@
 **Frontend**
 
 - React
+- React Query
+- Tiptap
+- Stomp
 
 **CI/CD**
 
@@ -344,16 +347,15 @@
 
 ### 메인 페이지(문제리스트)
 
-<img src="./img/problemList.png" width="800">
+<img src="./img/mp_mylist.gif" width="800">
 
 - 문제 리스트 및 각 문제 정답 여부 확인 가능
 - 필터 및 검색 가능
 
 ### IDE 페이지
 
-<img src="./img/compileError.png" width="800">
+<img src="./img/compile.gif" width="800">
 <img src="./img/IDEmylist.png" width="800">
-<img src="./img/successConfetti.png" width="800">
 
 - 문제 내용 및 예제 테스트 케이스, 개인 작성 코드 확인 가능
 - 채팅 및 마이리스트(문제집) 기능 사용 가능
@@ -361,7 +363,7 @@
 
 ### 채팅
 
-<img src="./img/successConfetti.png" width="800">
+<img src="./img/chat.gif" width="800">
 
 - 닉네임, 색 표시로 채팅 구분 및 마크다운 형식 지원으로 코드 공유 가능
 - 실시간 채팅 기능
