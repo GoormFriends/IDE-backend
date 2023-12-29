@@ -1,4 +1,4 @@
-# ☁️GOORM_FRIENDS☁️ - 코딩테스트를 위한 WEB IDE 만들기
+## ☁️POORM_FRIENDS☁️ - 코딩테스트를 위한 WEB IDE
 
 ### 🕑프로젝트 기간
 
@@ -14,21 +14,34 @@
 
 ### 🤔개요
 
-저희 서비스는 ~~~ 입니다
+저희 서비스는 알고리즘 문제 풀이에 최적화된 WebIDE 입니다.
+
+알고리즘 문제를 풀고, 채팅을 통해 서로의 코드를 참고하여 풀이 방식을 공유할 수 있습니다.
+
+자신만의 문제집(마이리스트)를 만들어, 편리하게 문제를 찾거나 저장할 수 있습니다.
 
 ### 🛠주요 기능
 
-### 채팅 + 코드 댓글
+### 채팅
 
--
+- 채팅 속 마크다운 형식 지원
+- SNS 형식의 채팅 UI
 
-### 문제집
+### 문제집(마이리스트) 및 문제리스트
 
--
+- 문제리스트, 마이페이지에서 확인, 수정, 삭제 가능
+- 문제리스트 별 필터 기능 (정답 유무, 레벨 별)
+- 문제리스트 내 검색 기능
 
-### 기타
+### WEB IDE
 
--
+- 컴파일 기능 (문제를 풀고 나면, 컴파일 에러, 오답, 정답 등 표시)
+- 문제 정답일 경우, 콘페티로 표시
+
+### 기타 기능
+
+- 소셜 로그인 (kakao, github) 지원
+- 문제 클릭 시 이동
 
 ### ⚙개발 환경 및 기술 스택
 
@@ -52,7 +65,6 @@
 - Spring Boot Starter Test
 - Spring Security Test
 - Spring Data Redis
-- Jedis (Redis client library)
 - Spring Boot Starter AOP
 
 **Frontend**
@@ -75,51 +87,120 @@
 - DBMS: MySQL
 - Cache: Redis
 
-**Server**
-
-- AWS EC2
-- Ubuntu 20.04 LTS (GNU/Linux 5.4.0-1018-aws x86_64) 2
-- AWS S3
-
 ### 🎨시스템 아키텍처 (참고사항)
 
-<img src="./img/sysemarchitecture.png" width="700">
+<img src="./img/sysetm_architecture.png" width="700">
 
 ### 🔀 ERD
+
+<img src="./img/erd.png" width="700">
 
 ### 💾프로젝트 파일 구조
 
 - Backend
 
-```
-back
-└─ src
-   └─ main
-      ├─ java
-      │  └─ com
-      │     └─ project
-      │        └─ helloworld
-      │           ├─ aoplog
-      │           ├─ config
-      │           ├─ controller
-      │           ├─ domain
-      │           ├─ dto
-      │           │  ├─ request
-      │           │  └─ response
-      │           ├─ elkStack
-      │           │  └─ domain
-      │           ├─ exception
-      │           ├─ interceptor
-      │           ├─ repository
-      │           ├─ schedule
-      │           ├─ security
-      │           │  ├─ jwt
-      │           │  └─ oauth2
-      │           └─ service
-      └─ resources
-```
-
-- Frontend
+```bash
+📦backend
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂com.goorm.goormfriends
+ ┃ ┃ ┃ │ ┣ 📂api
+ ┃ ┃ ┃ │ ┃ ┣ 📂compiler
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📂core
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeController.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜WrapperResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeCompiler.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeCompilerService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜IdeService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜MemoryClassLoader.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜MemoryJavaFileManager.java
+ ┃ ┃ ┃ │ ┃ ┣ 📂controller
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜DirectoryController.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ProblemController.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜UserController.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜WebSocketController.java
+ ┃ ┃ ┃ │ ┃ ┣ 📂dto
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📂criteria
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜ProblemSearchCriteria.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📂redis
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜RedisPublisher.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜RedisSubscriber.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜ChatMessageRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜CreateDirectoryRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜DeleteDirectoryRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜DirectoryProblemRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜UpdateDirectoryRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜UpdateUserInfoRequest.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜CustomDirectoryInfo.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜DirectoryListResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜DirectoryProblemResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜LoginResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜ProblemDetailsResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜ProblemResponse.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┣ 📜TestCaseInfo.java
+ ┃ ┃ ┃ │ ┃ ┃ ┃ ┗ 📜UserInfoRespone.java
+ ┃ ┃ ┃ │ ┃ ┗ 📂service
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ChatService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜DirectoryService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜DirectoryServiceImpl.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ProblemService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜UserService.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜UserServiceImpl.java
+ ┃ ┃ ┃ │ ┣ 📂common
+ ┃ ┃ ┃ │ ┃ ┣ 📂jwt
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜JwtAuthenticationEntryPoint.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜TokenProvider.java
+ ┃ ┃ ┃ │ ┃ ┗ 📂oauth
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜GithubUserInfo.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜KakaoUserInfo.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜OAuth2UserInfo.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜PrincipalDetails.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜PrincipalOauth2UserService.java
+ ┃ ┃ ┃ │ ┣ 📂conig
+ ┃ ┃ ┃ │ ┃ ┣ 📜JwtSecurityConfig.java
+ ┃ ┃ ┃ │ ┃ ┣ 📜RedisConfig.java
+ ┃ ┃ ┃ │ ┃ ┣ 📜SecurityConfig.java
+ ┃ ┃ ┃ │ ┃ ┗ 📜WebSocketConfig.java
+ ┃ ┃ ┃ │ ┣ 📂db
+ ┃ ┃ ┃ │ ┃ ┣ 📂entity
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜BaseTimeEntity.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ChatMessage.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜CustomDirectory.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜CustomDirectoryProblem.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜Ide.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜Problem.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ProblemTestCase.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜RefreshToken.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜State.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜User.java
+ ┃ ┃ ┃ │ ┃ ┗ 📂repository
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ChatMessageRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜CustomDirectoryProblemRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜CustomDirectoryRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜IdeRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ProblemRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜ProblemTestCaseRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┣ 📜RefreshTokenRepository.java
+ ┃ ┃ ┃ │ ┃ ┃ ┗ 📜UserRepository.java
+ ┃ ┃ ┃ │ ┣ 📂filter
+ ┃ ┃ ┃ │ ┃ ┗ 📜JwtFilter.java
+ ┃ ┃ ┃ │ ┣ 📂handler
+ ┃ ┃ ┃ │ ┃ ┣ 📜JwtAccessDeniedHandler.java
+ ┃ ┃ ┃ │ ┃ ┣ 📜OAuth2AuthenticationFailureHandler.java
+ ┃ ┃ ┃ │ ┃ ┗ 📜OAuth2AuthenticationSuccessHandler.java
+ ┃ ┃ ┃ │ ┣ 📂util
+ ┃ ┃ ┃ │ ┃ ┣ 📜CookieUtil.java
+ ┃ ┃ ┃ │ ┃ ┗ 📜SecurityUtil.java
+ ┗ ┗ ┗ ┗ ┗ 📜GoormfriendsApplication.java
+ ```
+ 
+ - Frontend
 
 ```bash
 FE
@@ -175,141 +256,71 @@ FE
   - 컨벤션 정리
   - 간트차트 활용한 개발 계획 관리
   - 스토리 보드, 시퀀스 다이어그램, 기능 명세서 등 팀원 모두가 공유해야 하는 문서 관리
-- Discord
+- Discord, Zep
+  - 회의 및 기능 구현, 개발 진행 상황 파악
+  - 온라인 개발 진행할 때 서로 공유
 
 ### 😎팀원 역할
 
 - 이다희
   - 팀장
   - Frontend
+  - IDE 페이지, 마이리스트, FE 코드 리펙토링
 - 강수영
+  - FE 파트장
   - Frontend
-  -
-- 김선민
-  - Backend
-  -
+  - 소셜 로그인, 마이페이지, 배포
 - 변유정
+  - 프로젝트 매니저
   - Backend
-  -
+  - 소셜 로그인, 마이리스트 API, 채팅
 - 임동기
+  - 서기 및 발표
   - Frontend
-  -
+  - 문제 리스트 페이지, 채팅
 - 임소라
+  - BE 파트장
   - Backend
-  -
+  - 코드 컴파일 기능, 배포
 - 한석규
+  - 기술 문서 담당
   - Backend
-  -
+  - 문제 리스트 API, IDE 데이터 및 테스트케이스 API, 배포
 
 ### 🎞기능 소개 및 화면 (참고 사항)
 
-### 로그인 이전
+### 메인 및 로그인
 
-<img src="./img/before_login.png" width="800">
+<img src="./img/loginPage.png" width="800">
 
-- 일반 로그인, github로그인, 회원가입 등을 선택할 수 있는 화면
+- Kakao, github로그인 등을 선택할 수 있는 화면
 
-### 회원가입 및 아바타 생성
+### 마이페이지
 
-<img src="./img/sign_up.gif" width="800">
+<img src="./img/myPage.png" width="800">
 
-- 회원가입에 필요한 유저 정보 모두 기입 후, 아바타 디자인 가능
+- 개인 정보 및 마이리스트(문제집) 확인 가능
 
-### 일반 로그인
+### 메인 페이지(문제리스트)
 
-<img src="./img/normal_login.gif" width="800">
+<img src="../img/problemList.png" width="800">
 
-- 회원가입한 아이디, 비밀번호로 로그인
+- 문제 리스트 및 각 문제 정답 여부 확인 가능
+- 필터 및 검색 가능
 
-### 소셜 로그인
+### IDE 페이지
 
-<img src="./img/social_login.gif" width="800">
+<img src="./img/compileError.png" width="800">
+<img src="./img/IDEmylist.png" width="800">
+<img src="./img/successConfettie.png" width="800">
 
-- github 계정으로 로그인
+- 문제 내용 및 예제 테스트 케이스, 개인 작성 코드 확인 가능
+- 채팅 및 마이리스트(문제집) 기능 사용 가능
+- 정답일 경우, 콘페티로 구현
 
-### 회원 정보 수정
+### 채팅
 
-<img src="./img/modify_use.gif" width="800">
+<img src="./img/successConfettie.png" width="800">
 
-- 회원가입 시 입력한 정보를 수정(이메일은 수정 불가) 하거나 확인 가능
-
-### 회원 아바타 수정
-
-<img src="./img/modify_avatar.gif" width="800">
-
-- 회원가입 시 생성한 아바타를 수정하거나, github로그인 시 기본 아바타가 제공되는데 이를 수정 가능
-
-### 메인 페이지
-
-<img src="./img/mainPage.gif" width="800">
-
-- 해당 홈페이지 주인의 아바타, 닉네임, 잔디, 일촌평, 미니룸 등을 확인 가능
-- 로그인된 사용자의 스토리 확인 가능
-
-### 메인 세부 - 스토리
-
-<img src="./img/story.gif" width="800">
-
-- 로그인된 사용자와 일촌인 다른 사용자가 게시글을 작성하게 되면, 해당 시간으로부터 24시간 동안 게시글이 노출됨
-
-### 메인 세부 - 파도타기
-
-<img src="./img/surffing.gif" width="800">
-
-- 랜덤으로 추천되는 사용자의 페이지로 이동 가능
-
-### 메인 세부 - 잔디
-
-<img src="./img/grass.gif" width="800">
-
-- 글을 많이 작성하면 작성할 수록 잔디의 색깔이 진해짐
-- 잔디를 눌러 그 날 작성한 게시글을 확인할 수 있고, 제목 클릭 시 해당 게시글로 이동 가능
-
-### 메인 세부 - 일촌평
-
-<img src="./img/family_comment.gif" width="800">
-
-- 홈페이지 주인과 일촌인 사람만이 일촌평을 작성 가능
-
-### 게시글 조회
-
-<img src="./img/board_read.gif" width="800">
-
-- 카테고리 별 게시글 조회 및 전체 게시글 조회 가능
-
-### 게시글 작성
-
-<img src="./img/boardCreate.gif" width="800">
-
-- 마크다운 형식으로 게시글 작성 가능
-
-### Scrap
-
-<img src="./img/scrap.gif" width="800">
-
-- 모든 유저들이 작성한 게시글 scrap 가능
-- scrap한 게시글은 scrap 페이지 에서 조회 및 삭제 가능
-
-### 커뮤니티
-
-<img src="./img/community.gif" width="800">
-
-- 실시간 인기 검색어 10위를 확인 가능
-- 검색 이전에는 다른 사용자들이 작성한 모든 글들을 최신순으로 조회 가능
-- 검색 이후에는 해당 검색어와 연관 있는 글들을 조회 가능
-
-### 방명록
-
-<img src="./img/guest_book.gif" width="800">
-
-- 누구나 작성 가능 (홈페이지 주인 제외)
-- 공개글/비밀글 설정 가능
-- 방명록에 대한 댓글은 홈페이지 주인만이 게시 가능
-
-### 알림
-
-<img src="./img/alaram.gif" width="800">
-
-- 일촌 요청이 오거나, 일촌 수락이 되거나, 내 게시물에 누가 댓글을 달거나, 내 방명록에 누가 글을 남기면 알림 도착
-- 댓글이나 방명록 관련 알림의 경우 클릭 시 해당 게시글이나 방명록으로 이동 가능
-- 읽기 전과 읽기 후의 색이 다르게 노출
+- 닉네임, 색 표시로 채팅 구분 및 마크다운 형식 지원으로 코드 공유 가능
+- 실시간 채팅 기능
