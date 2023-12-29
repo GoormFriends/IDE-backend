@@ -338,13 +338,13 @@
 
 ### 마이페이지
 
-<img src="./img/myPage.png" width="800">
+<img src="./img/mp_mylist.gif" width="800">
 
 - 개인 정보 및 마이리스트(문제집) 확인 가능
 
 ### 메인 페이지(문제리스트)
 
-<img src="./img/mp_mylist.gif" width="800">
+<img src="./img/problemList.png" width="800">
 
 - 문제 리스트 및 각 문제 정답 여부 확인 가능
 - 필터 및 검색 가능
