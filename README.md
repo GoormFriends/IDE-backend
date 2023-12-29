@@ -57,22 +57,19 @@
 - Spring Security
 - Spring Data JPA
 - Spring Boot Starter Oauth2 Client
-- Spring Boot Starter Validation
-- Json Web Token(jwt): 0.11.2
-- Spring Boot Starter Data Redis
-- Lombok
-- Spring Boot Devtools
-- Spring Boot Starter Test
-- Spring Security Test
+- Json Web Token(jwt)
 - Spring Data Redis
-- Spring Boot Starter AOP
 
 **Frontend**
 
-- React
-- React Query
-- Tiptap
-- Stomp
+- react
+- axios
+- react-query
+- react-router-dom
+- monaco-editor
+- Material-UI
+- tiptap
+- stompjs
 
 **CI/CD**
 
