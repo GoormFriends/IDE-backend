@@ -203,38 +203,79 @@
  - Frontend
 
 ```bash
-FE
-├─ src
-│  ├─ api
-│  ├─ assets
-│  │  ├─ chatbot
-│  │  ├─ icon
-│  │  ├─ image
-│  │  │  ├─ achievement
-│  │  │  ├─ emotion
-│  │  │  ├─ hair
-│  │  │  ├─ pants
-│  │  │  ├─ pet
-│  │  │  └─ shirt
-│  │  └─ minimi_temp
-│  ├─ components
-│  │  ├─ BasicComp
-│  │  ├─ BoardComp
-│  │  │  └─ CommentComp
-│  │  ├─ FollowComp
-│  │  ├─ GuestBookComp
-│  │  ├─ MainPageComp
-│  │  ├─ NotifyComp
-│  │  ├─ StatisticComp
-│  │  └─ UserComp
-│  ├─ router
-│  └─ views
-│     ├─ BoardView
-│     └─ UserView
-│        ├─ findpw
-│        ├─ login
-│        ├─ modify
-└────────└─ register
+📦src
+ ┣ 📂api
+ ┃ ┣ 📜MyListService.js
+ ┃ ┗ 📜ProblemListsService.js
+ ┣ 📂assets
+ ┃ ┗ 📂images
+ ┃ ┃ ┣ 📜logo.png
+ ┃ ┃ ┗ 📜title_logo.png
+ ┣ 📂components
+ ┃ ┣ 📂Ide
+ ┃ ┃ ┣ 📜Confetti.jsx
+ ┃ ┃ ┣ 📜InputOutput.jsx
+ ┃ ┃ ┣ 📜InputOutput.module.css
+ ┃ ┃ ┣ 📜MonacoEditor.jsx
+ ┃ ┃ ┣ 📜ProblemContent.jsx
+ ┃ ┃ ┗ 📜ProblemContent.module.css
+ ┃ ┣ 📂chatModal
+ ┃ ┃ ┣ 📜ChatModal.jsx
+ ┃ ┃ ┣ 📜ChatModal.module.css
+ ┃ ┃ ┣ 📜InputField.jsx
+ ┃ ┃ ┣ 📜InputField.module.css
+ ┃ ┃ ┣ 📜MessageContainer.jsx
+ ┃ ┃ ┣ 📜MessageContainer.module.css
+ ┃ ┃ ┗ 📜TipTap.css
+ ┃ ┣ 📂footer
+ ┃ ┃ ┣ 📜Footer.jsx
+ ┃ ┃ ┗ 📜Footer.module.css
+ ┃ ┣ 📂header
+ ┃ ┃ ┣ 📜Header.jsx
+ ┃ ┃ ┗ 📜Header.module.css
+ ┃ ┣ 📂miniMyList
+ ┃ ┃ ┣ 📜MiniMyList.jsx
+ ┃ ┃ ┗ 📜MiniMyList.module.css
+ ┃ ┣ 📂myList
+ ┃ ┃ ┣ 📜AddMyList.jsx
+ ┃ ┃ ┣ 📜AddMyList.module.css
+ ┃ ┃ ┣ 📜MyList.jsx
+ ┃ ┃ ┣ 📜MyList.module.css
+ ┃ ┃ ┣ 📜MyListContainer.jsx
+ ┃ ┃ ┣ 📜MyListContainer.module.css
+ ┃ ┃ ┣ 📜MyListProblem.jsx
+ ┃ ┃ ┣ 📜MyListProblem.module.css
+ ┃ ┃ ┗ 📜TestModal.jsx
+ ┃ ┣ 📂myPageListBox
+ ┃ ┃ ┣ 📜myPageListBox.jsx
+ ┃ ┃ ┗ 📜myPageListBox.module.css
+ ┃ ┗ 📂problemList
+ ┃ ┃ ┣ 📜ProblemRow.jsx
+ ┃ ┃ ┗ 📜ProblemRow.module.css
+ ┣ 📂contexts
+ ┃ ┗ 📜EditorContext.jsx
+ ┣ 📂pages
+ ┃ ┣ 📂ide
+ ┃ ┃ ┣ 📜IdePage.jsx
+ ┃ ┃ ┗ 📜IdePage.module.css
+ ┃ ┣ 📂login-page
+ ┃ ┃ ┣ 📜LoginPage.jsx
+ ┃ ┃ ┣ 📜LoginPage.module.css
+ ┃ ┃ ┣ 📜RedirectPage.jsx
+ ┃ ┃ ┗ 📜api.jsx
+ ┃ ┣ 📂my_page
+ ┃ ┃ ┣ 📜my_page.jsx
+ ┃ ┃ ┗ 📜my_page.module.css
+ ┃ ┗ 📂problem_lists_page
+ ┃ ┃ ┣ 📜ProblemListsPage.jsx
+ ┃ ┃ ┗ 📜ProblemListsPage.module.css
+ ┣ 📜App.css
+ ┣ 📜App.jsx
+ ┣ 📜App.test.jsx
+ ┣ 📜index.css
+ ┣ 📜index.jsx
+ ┣ 📜setupProxy.js
+ ┗ 📜setupTests.jsx
 ```
 
 ### 👨🏻‍🤝‍👨🏻협업 툴
