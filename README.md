@@ -22,6 +22,8 @@
 
 ### 🛠주요 기능
 
+<img src="./img/preview.gif" width="700">
+
 ### 채팅
 
 - 채팅 속 마크다운 형식 지원
@@ -332,7 +334,7 @@
 
 ### 메인 및 로그인
 
-<img src="./img/loginPage.png" width="800">
+<img src="./img/login.gif" width="800">
 
 - Kakao, github로그인 등을 선택할 수 있는 화면
 
@@ -345,8 +347,11 @@
 ### 메인 페이지(문제리스트)
 
 <img src="./img/problemList.png" width="800">
+<img src="./img/pl_mylist.gif" width="800">
+<img src="./img/pl_search_filter.gif" width="800">
 
 - 문제 리스트 및 각 문제 정답 여부 확인 가능
+- 문제 리스트 내 마이리스트 편집 가능
 - 필터 및 검색 가능
 
 ### IDE 페이지
