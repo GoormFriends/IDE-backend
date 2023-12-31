@@ -13,25 +13,20 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
 
-    //userRequest -> code를 받아서 accessToken을 응답받은 객체
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        // code 를 통해 구성한 정보
-        System.out.println("PrincipalOAuth2UserService - loadUser");
         return processOAuth2User(userRequest, oAuth2User);
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User) throws OAuth2AuthenticationException{
 
         OAuth2UserInfo oAuth2UserInfo = null;
-        System.out.println("PrincipalService processOAuth2User");
         if (userRequest.getClientRegistration().getRegistrationId().equals("github")) {
             oAuth2UserInfo = new GithubUserInfo(oAuth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")){
@@ -53,10 +48,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                 // 이미 해당 이메일로 로컬 회원가입이 되어있는 유저라면
                 throw new OAuth2AuthenticationException("이미 가입한 회원입니다.");
             } else {
-                // 소셜 로그인 유저는 일반 로그인 불가능~.~
                 user = new User(oAuth2UserInfo);
                 userRepository.save(user);
-                log.info("social login save!");
             }
         }
 

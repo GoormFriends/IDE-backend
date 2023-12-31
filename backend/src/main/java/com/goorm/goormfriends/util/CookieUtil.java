@@ -31,7 +31,7 @@ public class CookieUtil {
                 if (name.equals(cookie.getName())) {
                     cookie.setValue(value);
                     cookie.setPath("/");
-                    cookie.setMaxAge(60 * 60 * 24);
+                    cookie.setMaxAge(0);
                     response.addCookie(cookie);
                     isModify = true;
                 }
@@ -42,7 +42,7 @@ public class CookieUtil {
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
-        cookie.setMaxAge(60 * 60 * 24); // 1일
+        cookie.setMaxAge(0); // 1일
 
         response.addCookie(cookie);
     }

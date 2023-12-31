@@ -22,19 +22,11 @@ public class JwtFilter extends OncePerRequestFilter {
     public static final String BEARER_PREFIX = "Bearer";
 
     private final TokenProvider tokenProvider;
-
-    // 실제 필터링 로직은 doFilterInternal 에 들어감
-    // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
 
-        // response
-        HttpServletResponse res = (HttpServletResponse) response;
-        // Reqeust token 꺼냄
         String jwt = resolveToken(request);
-
-        // validateToken 토큰 유효성 검사하기
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -21,10 +20,8 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException, OAuth2AuthenticationException {
         if (exception instanceof OAuth2AuthenticationException) {
-            log.error("소셜 로그인 에러 => {}", exception.getMessage());
             response.sendRedirect("/oauth/fail");
         } else {
-            log.error("의도하지 않은 에러 => {}", exception.getMessage());
             response.sendRedirect("/login?error=" + exception.getMessage());
         }
     }

@@ -7,15 +7,6 @@ public class GithubUserInfo implements OAuth2UserInfo{
 
     public GithubUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
-        /*
-         *   {login=nickname,
-         *   id=아이디값,
-         *   node_id=?,
-         *   avatar_url=profile_image,
-         *   ...,
-         *   email=이메일
-         * }
-         * */
     }
     @Override
     public String getProviderId() {

@@ -30,10 +30,10 @@ public class User {
     @Column(nullable = true)
     private String profileImage; // 프로필 이미지
 
-    @Column(nullable = false)
+    @Column
     private String provider; // 소셜 로그인 출처 ex. github, kakao
 
-    @Column(nullable = false)
+    @Column
     private String providerId; // 소셜 로그인 ID
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

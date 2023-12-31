@@ -16,9 +16,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-// 시큐리티가 /login 요청을 보고 로그인을 대신 진행해준다
-// 로그인 진행 완료시 시큐리티 세션이 만들어진다
-// Authentication 객체에 유저 정보를 저장하여 시큐리티 세션에 저장
 @ToString
 @Setter
 @NoArgsConstructor
@@ -36,7 +33,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        System.out.println("PrincipalDetails-RoleUser");
         List<GrantedAuthority> listRole = new ArrayList<>();
         listRole.add(new SimpleGrantedAuthority("ROLE_USER"));
         return listRole;
