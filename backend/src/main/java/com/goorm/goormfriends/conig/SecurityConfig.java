@@ -51,14 +51,10 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 )
-                // 시큐리티는 기본적으로 세션 사용
-                // 여기서는 세션 -> 쿠키 사용! 세션 설정을 Stateless로 설정
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 로그인, 회원가입 API는 토큰이 없는 상태에서 요청 들어오기 때문에 permitAll 설정
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                                //.requestMatchers(PERMIT_URL_ARRAY).hasAnyAuthority()
                                 .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
@@ -72,17 +68,11 @@ public class SecurityConfig {
 
     }
 
-    private static final String[] PERMIT_URL_ARRAY = {
-            "/user/oauth/login"
-    };
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.addAllowedOrigin("http://localhost:8081");
-        config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedMethod("*"); // 모든 메소드 허용.
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
 
